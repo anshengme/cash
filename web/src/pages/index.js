@@ -36,6 +36,8 @@ for (let i = 1; i < 6; i++) {
   });
 }
 
+const links = ['淘宝网', '京东', '天猫', '腾讯视频', '优酷', '爱奇艺', '阿里巴巴', '抖音', 'GitHub'];
+
 export default function() {
   return (
     <Row gutter={8}>
@@ -114,6 +116,7 @@ export default function() {
               />
             </div>
           </div>
+
           <div>
             <div className={style.rightTitle}>
               <h2>系列文章</h2>
@@ -126,6 +129,22 @@ export default function() {
               </ul>
             </div>
           </div>
+
+          <div>
+            <div className={style.rightTitle}>
+              <h2>友情链接</h2>
+            </div>
+            <div className={style.rightContent}>
+              <ul>
+                {
+                  links.map((link) =>
+                    <li key={link}><a href="#">{link}</a></li>,
+                  )
+                }
+              </ul>
+            </div>
+          </div>
+
         </div>
       </Col>
     </Row>
