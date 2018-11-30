@@ -7,9 +7,8 @@ export default function() {
     <header className={style.wrapper}>
       <div className={style.content}>
         <ul className={style.left}>
-          <li>
-            <Link to="/">首页</Link>
-          </li>
+          <li><Link to="/">首页</Link></li>
+          <li><Link to="/archive">归档</Link></li>
         </ul>
 
         <ul className={style.right}>

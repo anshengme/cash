@@ -1,9 +1,11 @@
 import React from 'react';
-import { Row, Col, Icon, Avatar } from 'antd';
+import { Row, Col, Icon, Avatar, Input } from 'antd';
 import Link from 'umi/link';
 import style from './index.less';
 import articleImg from '../assets/article-img.jpeg';
 import AvatarImg from '../assets/avatar.png';
+
+const Search = Input.Search;
 
 const IconText = ({ type, text, theme }) => (
   <span>
@@ -104,6 +106,13 @@ export default function() {
               <Icon type="mail" theme="filled"/>
             </Link> .
             </p>
+            <div className={style.meSearch}>
+              <Search
+                placeholder="搜索"
+                onSearch={value => console.log(value)}
+                enterButton
+              />
+            </div>
           </div>
           <div>
             <div className={style.rightTitle}>

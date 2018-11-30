@@ -5,6 +5,7 @@ export default [
     routes: [
       { path: '/', component: './index' },
       { path: '/article/:id', component: './ArticleDetail' },
+      { path: '/archive/', component: './Archive' },
     ],
   },
 ];
