@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Divider, Icon, Row, Input, Button, Avatar } from 'antd';
+import { Avatar, Button, Col, Divider, Icon, Input, Row } from 'antd';
 import styles from './ArticleDetail.less';
 import indexStyles from './index.less';
 

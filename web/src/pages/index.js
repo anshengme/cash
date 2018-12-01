@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Icon, Avatar, Input } from 'antd';
+import { Avatar, Col, Icon, Input, Row } from 'antd';
 import Link from 'umi/link';
 import style from './index.less';
 import articleImg from '../assets/article-img.jpeg';

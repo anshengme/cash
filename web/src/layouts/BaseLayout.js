@@ -7,9 +7,9 @@ export default function HomeLayout(props) {
   const { children } = props;
   return (
     <Fragment>
-      <Header />
+      <Header/>
       <div className={style.wrapper}>{children}</div>
-      <Footer />
+      <Footer/>
     </Fragment>
   );
 }

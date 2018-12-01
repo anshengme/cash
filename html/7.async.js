@@ -1,0 +1,1 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([[7],{Du5Z:function(e,t,n){"use strict";var u=n("TqRt");Object.defineProperty(t,"__esModule",{value:!0}),t.default=a;var l=u(n("q1tI"));function a(){return l.default.createElement("div",null,l.default.createElement("h1",null,"\u53cb\u60c5\u94fe\u63a5"))}}}]);
