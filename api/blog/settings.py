@@ -30,7 +30,8 @@ LOCAL_APPS = (
     'blog_account',
     'blog_admin',
     'blog_article',
-    'blog_link'
+    'blog_link',
+    'blog_comment'
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
