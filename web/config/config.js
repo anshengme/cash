@@ -16,6 +16,8 @@ export default {
       hardSource: true,
     }],
   ],
+  // 启用hash路由
+  history: 'hash',
   // 路由配置
   routes: pageRoutes,
 };
