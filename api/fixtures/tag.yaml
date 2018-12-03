@@ -1,0 +1,16 @@
+- model: blog_tag.tag
+  pk: 1
+  fields:
+    ct: "2018-12-03 10:07:23"
+    ut: "2018-12-03 10:07:23"
+    is_del: False
+    name: Python
+
+- model: blog_tag.tag
+  pk: 2
+  fields:
+    ct: "2018-12-03 10:07:23"
+    ut: "2018-12-03 10:07:23"
+    is_del: False
+    name: Django
+

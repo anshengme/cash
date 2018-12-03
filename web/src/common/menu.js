@@ -36,10 +36,6 @@ const menuData = [
     icon: 'user',
     path: '/admin/user/',
   }, {
-    name: '个人中心',
-    icon: 'profile',
-    path: '/admin/profile/',
-  }, {
     name: '站点设置',
     icon: 'setting',
     path: '/admin/setting/',

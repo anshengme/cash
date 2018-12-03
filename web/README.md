@@ -3,3 +3,4 @@
 ## Plugin
 
 - ant-design-pro
+- md5

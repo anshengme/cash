@@ -20,4 +20,10 @@ export default {
   history: 'hash',
   // 路由配置
   routes: pageRoutes,
+  // 代理配置
+  proxy: {
+    '/api/': {
+      target: 'http://127.0.0.1:8081/',
+    },
+  },
 };

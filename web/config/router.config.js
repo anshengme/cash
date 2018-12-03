@@ -9,7 +9,6 @@ export default [
       { path: '/admin/comment', component: './admin/Comment' },
       { path: '/admin/link', component: './admin/Link' },
       { path: '/admin/user', component: './admin/User' },
-      { path: '/admin/profile', component: './admin/Profile' },
       { path: '/admin/setting', component: './admin/Setting' },
     ],
   }, {
