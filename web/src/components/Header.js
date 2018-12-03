@@ -70,7 +70,7 @@ class Header extends Component {
               )}
             </FormItem>
           </Form>
-        </Modal>;
+        </Modal>
       </header>
     )
       ;
