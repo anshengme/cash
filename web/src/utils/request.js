@@ -2,6 +2,8 @@ import fetch from 'dva/fetch';
 import { notification } from 'antd';
 import router from 'umi/router';
 import hash from 'hash.js';
+import { getToken, removeToken } from '@/utils/token';
+
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -56,16 +58,20 @@ const cachedSave = (response, hashcode) => {
 };
 
 /**
- * Requests a URL, returning a promise.
+ * 发送request请求并返回结果
  *
- * @param  {string} url       The URL we want to request
+ * @param  {string} url       API地址
  * @param  {object} [option] The options we want to pass to "fetch"
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, option) {
-  const options = {
-    ...option,
-  };
+  let options = { ...option };
+  let isAuth = false;
+  if (option && 'isAuth' in option) {
+    isAuth = options.isAuth;
+    delete options.isAuth;
+  }
+
   /**
    * Produce fingerprints based on url and parameters
    * Maybe url has the same parameters
@@ -76,8 +82,11 @@ export default function request(url, option) {
     .update(fingerprint)
     .digest('hex');
 
+  const token = getToken();
   const defaultOptions = {
     credentials: 'include',
+    // 添加Token
+    headers: isAuth ? { Authorization: `Token ${token}` } : {},
   };
   const newOptions = { ...defaultOptions, ...options };
   if (
@@ -116,6 +125,7 @@ export default function request(url, option) {
       sessionStorage.removeItem(`${hashcode}:timestamp`);
     }
   }
+
   return fetch(url, newOptions)
     .then(checkStatus)
     .then(response => cachedSave(response, hashcode))
@@ -130,20 +140,14 @@ export default function request(url, option) {
     .catch(e => {
       const status = e.name;
       if (status === 401) {
-        // @HACK
-        /* eslint-disable no-underscore-dangle */
-        window.g_app._store.dispatch({
-          type: 'login/logout',
-        });
+        removeToken();
         return;
       }
       // environment should not be used
       if (status === 403) {
-        router.push('/403');
         return;
       }
       if (status <= 504 && status >= 500) {
-        router.push('/500');
         return;
       }
       if (status >= 404 && status < 422) {

@@ -1,5 +1,5 @@
 import md5 from 'md5';
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'dva';
 import Link from 'umi/link';
 import { Form, Icon, Input, Modal } from 'antd';
@@ -8,16 +8,15 @@ import styles from './Header.less';
 
 const FormItem = Form.Item;
 
-@connect(({ login, loading }) => ({
-  login,
-  submitting: loading.effects['login/login'],
-}))
+
+@connect(({ user }) => ({ user }))
 @Form.create()
 class Header extends Component {
   state = { isShowLoginOrRegisterModal: false, email: '', password: '' };
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const { userDetail } = this.props.user;
     return (
       <header className={styles.wrapper}>
         <div className={styles.content}>
@@ -25,14 +24,26 @@ class Header extends Component {
             <li><Link to="/">首页</Link></li>
             <li><Link to="/archive">归档</Link></li>
           </ul>
-
           <ul className={styles.right}>
-            <li>
-              <a href="#" onClick={this.changeIsShowLoginOrRegisterModal}>登录</a>
-            </li>
-            <li className={styles.register}>
-              <a href="#" onClick={this.changeIsShowLoginOrRegisterModal}>注册</a>
-            </li>
+            {
+              userDetail ?
+                <Fragment>
+                  <li>
+                    <Link to="/admin/">进入后台</Link>
+                  </li>
+                  <li className={styles.register}>
+                    <a href="#" onClick={this.handleLogout}>退出</a>
+                  </li>
+                </Fragment> :
+                <Fragment>
+                  <li>
+                    <a href="#" onClick={this.changeIsShowLoginOrRegisterModal}>登录</a>
+                  </li>
+                  <li className={styles.register}>
+                    <a href="#" onClick={this.changeIsShowLoginOrRegisterModal}>注册</a>
+                  </li>
+                </Fragment>
+            }
           </ul>
         </div>
 
@@ -90,11 +101,17 @@ class Header extends Component {
       if (!err) {
         const { dispatch } = this.props;
         dispatch({
-          type: 'login/login',
+          type: 'user/login',
           payload: { ...values, password: md5(values.password) },
         });
       }
     });
+  };
+
+  // 退出
+  handleLogout = () => {
+    const { dispatch } = this.props;
+    dispatch({ type: 'user/logout' });
   };
 }
 

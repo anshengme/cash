@@ -1,13 +1,13 @@
 from django.contrib.auth import authenticate
 from django.utils import timezone
 from rest_framework import viewsets, mixins
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from utils.error_code import HTTP_ERROR_CODE
 from utils.exceptions import Unauthorized
 from .models import Account
-from .serializers import LogInViewSetCreateSerializer
+from .serializers import LogInViewSetCreateSerializer, DetailViewSetListSerializer
 from .utils import get_jwt_token
 
 
@@ -35,6 +35,7 @@ class LoginViewSet(mixins.CreateModelMixin,
         if not account:
             is_superuser = True if not queryset.count() else False
             account = Account.objects.create_user(username=email, email=email, is_superuser=is_superuser)
+            account.nick_name = "第{}个用户".format(account.pk)
             account.set_password(password)
             account.save()
             # Todo: 新用户发送激活邮件
@@ -42,3 +43,18 @@ class LoginViewSet(mixins.CreateModelMixin,
         account.save()
         token = get_jwt_token(account)
         return Response({"token": token})
+
+
+class DetailViewSet(mixins.ListModelMixin,
+                    viewsets.GenericViewSet):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = DetailViewSetListSerializer
+
+    def get_queryset(self):
+        return self.request.user
+
+    def list(self, request, *args, **kwargs):
+        """
+        获取当前所登录用户的详情
+        """
+        return Response(self.get_serializer(self.get_queryset()).data)

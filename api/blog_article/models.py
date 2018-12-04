@@ -1,3 +1,4 @@
+import random
 from django.db import models
 
 from blog import static
@@ -11,14 +12,19 @@ class Article(BaseModel):
     """ 文章 """
     title = models.CharField(max_length=32, unique=True, help_text='文章标题')
     url = models.CharField(max_length=255, unique=True, help_text='链接')
-    description = models.TextField(help_text='摘要')
+    description = models.TextField(null=True, blank=True, help_text='摘要')
     keywords = models.TextField(help_text='关键字')
     content = models.TextField(help_text='文章内容')
+    img = models.CharField(max_length=64, null=True, blank=True, help_text="文章封面图")
     status = models.IntegerField(default=1, choices=static.ARTICLE_STATUS_CHOICES, help_text='文章状态')
     type = models.IntegerField(default=1, choices=static.ARTICLE_TYPE_CHOICES, help_text='文章类型')
     view_count = models.IntegerField(default=0, help_text="查看数")
     release_time = models.DateTimeField(null=True, blank=True, help_text="发布时间")
     tags = models.ManyToManyField(Tag, help_text="标签")
+
+    @property
+    def comment_count(self):
+        return random.randint(20, 100)
 
     class Meta:
         db_table = "article"

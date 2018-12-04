@@ -39,6 +39,10 @@ const menuData = [
     name: '站点设置',
     icon: 'setting',
     path: '/admin/setting/',
+  }, {
+    name: '返回首页',
+    icon: 'rollback',
+    path: '/',
   },
 ];
 
