@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  api:
+    image: python
+    container_name: cash_api
+    command: bash -c "cd /src/ && pip install -i https://pypi.doubanio.com/simple/ -r requirements.txt && python manage.py collectstatic --noinput && make migrate && make start"
+    volumes:
+      - ./api/:/src
+
+  lb:
+    image: nginx
+    container_name: cash_lb
+    links:
+      - api
+    ports:
+      - "9080:80"
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./:/src
+    depends_on:
+      - api
