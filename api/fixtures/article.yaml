@@ -14,6 +14,10 @@
     type: 1
     view_count: 234
     release_time: "2018-07-17 10:07:23"
+    tags:
+      - 2
+      - 3
+      - 4
 
 - model: blog_article.article
   pk: 2
@@ -31,6 +35,8 @@
     type: 1
     view_count: 23
     release_time: "2018-07-10 10:07:23"
+    tags:
+      - 5
 
 - model: blog_article.article
   pk: 3
@@ -60,11 +66,13 @@
     description: ''
     keywords: '关键字'
     content: '文章内容'
-    img: default/article-img.jpeg
+    img: ''
     status: 1
     type: 1
     view_count: 23423
     release_time: "2017-11-22 10:07:23"
+    tags:
+      - 5
 
 - model: blog_article.article
   pk: 5
@@ -99,6 +107,8 @@
     type: 1
     view_count: 236
     release_time: "2017-10-11 10:07:23"
+    tags:
+      - 2
 
 - model: blog_article.article
   pk: 7
@@ -116,6 +126,8 @@
     type: 1
     view_count: 573
     release_time: "2017-10-09 10:07:23"
+    tags:
+      - 6
 
 - model: blog_article.article
   pk: 8
@@ -133,6 +145,8 @@
     type: 1
     view_count: 735
     release_time: "2017-09-30 10:07:23"
+    tags:
+      - 1
 
 - model: blog_article.article
   pk: 9
@@ -150,6 +164,8 @@
     type: 1
     view_count: 734
     release_time: "2017-06-04"
+    tags:
+      - 2
 
 - model: blog_article.article
   pk: 10
@@ -201,6 +217,8 @@
     type: 1
     view_count: 23456
     release_time: "2017-05-24 10:07:23"
+    tags:
+      - 2
 
 - model: blog_article.article
   pk: 13
@@ -217,7 +235,7 @@
     status: 1
     type: 1
     view_count: 3634
-    release_time: "2017-05-24 10:07:23"
+    release_time: "2017-05-24 20:40:30"
 
 - model: blog_article.article
   pk: 14
@@ -234,7 +252,7 @@
     status: 1
     type: 1
     view_count: 576543
-    release_time: "2017-05-24 10:07:23"
+    release_time: "2017-08-02 20:07:23"
 
 - model: blog_article.article
   pk: 15
@@ -251,7 +269,7 @@
     status: 1
     type: 1
     view_count: 453
-    release_time: "2017-05-24 10:07:23"
+    release_time: "2017-05-14 08:07:23"
 
 - model: blog_article.article
   pk: 16
@@ -268,4 +286,4 @@
     status: 1
     type: 2
     view_count: 2345645
-    release_time: "2016-05-24 10:07:23"
+    release_time: "2016-05-24 05:07:23"

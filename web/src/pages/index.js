@@ -47,8 +47,8 @@ class IndexPage extends Component {
                         </span>
                         <span className={style.dot}/>
                         <span className={style.hotArticleListComment}>
-                        <Icon type="message" theme="filled" style={{ marginRight: 8 }}/>评论（{article.comment_count}）
-                      </span>
+                          <Icon type="message" theme="filled" style={{ marginRight: 8 }}/>评论（{article.comment_count}）
+                        </span>
                       </div>
                       <span className={style[`label${index + 1}`]}>{index + 1}</span>
                       <Link to={`/article/${article.url}`}>{article.title}</Link>
@@ -78,11 +78,27 @@ class IndexPage extends Component {
                           {article.description}
                         </div>
                         <div className={style.articleFooter}>
-                          <span>{formatDate(article.release_time)}</span>
+                          <span>{formatDate(article['release_time'])}</span>
                           <span className={style.dot}/>
-                          <IconText type="eye" theme="filled" text={article.view_count}/>
+                          <IconText type="eye" theme="filled" text={article['view_count']}/>
                           <span className={style.dot}/>
-                          <IconText type="message" theme="filled" text={article.comment_count}/>
+                          <IconText type="message" theme="filled" text={article['comment_count']}/>
+                          {
+                            article.tags ?
+                              <Fragment>
+                                <span className={style.dot}/>
+                                {article.tags.map((tag) =>
+                                  <Link
+                                    className={style.tagLink}
+                                    key={tag}
+                                    to={`/tag/${tag}`}>
+                                    {tag}
+                                  </Link>,
+                                )}
+                              </Fragment>
+                              :
+                              <Fragment/>
+                          }
                         </div>
                       </div>
                     </Col>
@@ -97,7 +113,7 @@ class IndexPage extends Component {
             <div>
               <div className={style.meAvatar}>
                 {
-                  userDetail && !(userDetail.is_superuser)
+                  userDetail && !(userDetail['is_superuser'])
                     ?
                     <Avatar size={180} src={MediaPath + userDetail.avatar}/>
                     :
@@ -106,10 +122,10 @@ class IndexPage extends Component {
               </div>
               <p className={style.meLink}>
                 {
-                  userDetail && !(userDetail.is_superuser)
+                  userDetail && !(userDetail['is_superuser'])
                     ?
                     <Fragment>
-                      Hello, {userDetail.nick_name}
+                      Hello, {userDetail['nick_name']}
                     </Fragment>
                     :
                     <Fragment>
@@ -170,9 +186,9 @@ class IndexPage extends Component {
                 <ul>
                   {
                     tags.map((tag) =>
-                      <li key={tag.id}>
-                        <Link to={`/tag/${tag.id}`}>
-                          {tag.name}（{tag.article_count}）
+                      <li key={tag.name}>
+                        <Link to={`/tag/${tag.name}`}>
+                          {tag.name}（{tag['article_count']}）
                         </Link>
                       </li>,
                     )
@@ -180,7 +196,6 @@ class IndexPage extends Component {
                 </ul>
               </div>
             </div>
-
           </div>
         </Col>
       </Row>

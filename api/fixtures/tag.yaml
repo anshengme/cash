@@ -14,3 +14,42 @@
     is_del: False
     name: Django
 
+- model: blog_tag.tag
+  pk: 3
+  fields:
+    ct: "2018-12-03 10:07:23"
+    ut: "2018-12-03 10:07:23"
+    is_del: False
+    name: Docker
+
+- model: blog_tag.tag
+  pk: 4
+  fields:
+    ct: "2018-12-03 10:07:23"
+    ut: "2018-12-03 10:07:23"
+    is_del: False
+    name: Sentry
+
+- model: blog_tag.tag
+  pk: 5
+  fields:
+    ct: "2018-12-03 10:07:23"
+    ut: "2018-12-03 10:07:23"
+    is_del: False
+    name: CentOS
+
+- model: blog_tag.tag
+  pk: 6
+  fields:
+    ct: "2018-12-03 10:07:23"
+    ut: "2018-12-03 10:07:23"
+    is_del: False
+    name: VIM
+
+- model: blog_tag.tag
+  pk: 7
+  fields:
+    ct: "2018-12-03 10:07:23"
+    ut: "2018-12-03 10:07:23"
+    is_del: False
+    name: Tornado

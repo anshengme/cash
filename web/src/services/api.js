@@ -32,3 +32,7 @@ export async function SeriesArticles() {
 export async function Articles() {
   return request('/api/article/');
 }
+
+export async function Archive() {
+  return request('/api/article/archive/');
+}
