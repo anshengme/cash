@@ -28,9 +28,7 @@ class Header extends Component {
             {
               userDetail ?
                 <Fragment>
-                  <li>
-                    <Link to="/admin/">进入后台</Link>
-                  </li>
+                  {userDetail['is_superuser'] ? <li><Link to="/admin/">进入后台</Link></li> : <Fragment/>}
                   <li className={styles.register}>
                     <a href="#" onClick={this.handleLogout}>退出</a>
                   </li>

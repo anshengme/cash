@@ -36,3 +36,19 @@ export async function Articles() {
 export async function Archive() {
   return request('/api/article/archive/');
 }
+
+//  管理后台API
+export async function AdminLinks() {
+  return request('/api/admin/link/', {
+    isAuth: true,
+  });
+}
+
+export async function createLink(params) {
+  return request('/api/admin/link/', {
+    method: 'POST',
+    body: params,
+    isAuth: true,
+  });
+}
+

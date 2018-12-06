@@ -13,7 +13,11 @@ from .serializers import LinkViewSetListSerializer, LinkViewSetCreateSerializer,
 
 # Create your views here.
 
-class LinkViewSet(viewsets.ModelViewSet):
+class LinkViewSet(mixins.ListModelMixin,
+                  mixins.CreateModelMixin,
+                  mixins.UpdateModelMixin,
+                  mixins.RetrieveModelMixin,
+                  viewsets.GenericViewSet):
     """
     list:
     友情链接-列表
@@ -26,11 +30,8 @@ class LinkViewSet(viewsets.ModelViewSet):
 
     retrieve:
     友情链接-详情
-
-    destroy:
-    友情链接-删除
     """
-    queryset = Link.objects.all()
+    queryset = Link.objects.order_by("-id")
     permission_classes = (IsSuperuserPermission,)
     pagination_class = LimitPagePagination
 

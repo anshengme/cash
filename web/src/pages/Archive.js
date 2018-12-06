@@ -35,25 +35,6 @@ class ArchivePage extends Component {
                 </div>,
               )
             }
-
-
-            {/*<div>*/}
-            {/*<h2>2017</h2>*/}
-            {/*<ul>*/}
-            {/*<li>*/}
-            {/*<span>2018-11-30</span><Link to="/">Docker部署Django项目</Link>*/}
-            {/*</li>*/}
-            {/*<li>*/}
-            {/*<span>2017-11-22</span><Link to="/">在CentOS上使用离线YUM安装软件包</Link>*/}
-            {/*</li>*/}
-            {/*<li>*/}
-            {/*<span>2017-11-10</span><Link to="/">两条指令搞定SSH反向隧道</Link>*/}
-            {/*</li>*/}
-            {/*<li>*/}
-            {/*<span>2017-10-16</span><Link to="/">Django中使用Oracle数据库</Link>*/}
-            {/*</li>*/}
-            {/*</ul>*/}
-            {/*</div>*/}
           </div>
         </Col>
       </Row>

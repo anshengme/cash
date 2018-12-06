@@ -2,6 +2,7 @@ export default [
   {
     path: '/admin/',
     component: '../layouts/AdminLayout',
+    Routes: ['./src/utils/isAdminRoute.js'],
     routes: [
       { path: '/admin', component: './admin/Dashboard' },
       { path: '/admin/article/create', component: './admin/ArticleCreate' },

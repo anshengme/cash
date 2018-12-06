@@ -8,5 +8,5 @@ export function formatDate(time) {
 
 export function formatDateTime(time) {
   if (!time) return 'Null';
-  return moment(time).format('YYYY/MM/DD/ HH:mm:ss');
+  return moment(time).format('YYYY-MM-DD HH:mm:ss');
 }

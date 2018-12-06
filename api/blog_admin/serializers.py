@@ -5,12 +5,14 @@ from blog_link.models import Link
 from blog_tag.models import Tag
 
 
-class LinkViewSetListSerializer(serializers.Serializer):
+class LinkViewSetListSerializer(serializers.ModelSerializer):
     """
     友情链接-列表
     """
-    name = serializers.CharField()
-    url = serializers.CharField()
+
+    class Meta:
+        model = Link
+        fields = '__all__'
 
 
 class LinkViewSetCreateSerializer(serializers.ModelSerializer):
