@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
+import { LocaleProvider } from 'antd';
+import zh_CN from 'antd/lib/locale-provider/zh_CN';
+import 'moment/locale/zh-cn';
+
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import style from './BaseLayout.less';
@@ -16,11 +20,13 @@ class HomeLayout extends Component {
   render() {
     const { children } = this.props;
     return (
-      <div>
-        <Header/>
-        <div className={style.wrapper}>{children}</div>
-        <Footer/>
-      </div>
+      <LocaleProvider locale={zh_CN}>
+        <div>
+          <Header/>
+          <div className={style.wrapper}>{children}</div>
+          <Footer/>
+        </div>
+      </LocaleProvider>
     );
   }
 }

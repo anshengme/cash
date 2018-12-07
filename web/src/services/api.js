@@ -1,3 +1,4 @@
+import { stringify } from 'qs';
 import request from '@/utils/request';
 
 export async function Login(params) {
@@ -38,8 +39,9 @@ export async function Archive() {
 }
 
 //  管理后台API
-export async function AdminLinks() {
-  return request('/api/admin/link/', {
+
+export async function AdminLinks(params) {
+  return request(`/api/admin/link/?${stringify(params)}`, {
     isAuth: true,
   });
 }
@@ -52,3 +54,24 @@ export async function createLink(params) {
   });
 }
 
+export async function updateLink(params, id) {
+  return request(`/api/admin/link/${id}/`, {
+    method: 'PUT',
+    body: params,
+    isAuth: true,
+  });
+}
+
+export async function AdminUser(params) {
+  return request(`/api/admin/account/?${stringify(params)}`, {
+    isAuth: true,
+  });
+}
+
+export async function updateUser(params, id) {
+  return request(`/api/admin/account/${id}/`, {
+    method: 'PUT',
+    body: params,
+    isAuth: true,
+  });
+}

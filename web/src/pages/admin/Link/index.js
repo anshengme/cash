@@ -1,33 +1,20 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import { connect } from 'dva';
-import {
-  Card,
-  Form,
-  Button,
-  Modal,
-  message,
-  Badge,
-} from 'antd';
+import { Badge, Button, Card, Form } from 'antd';
 import StandardTable from '@/components/StandardTable';
 import { formatDateTime } from '@/utils/utils';
 import CreateForm from './components/CreateForm';
 import UpdateForm from './components/UpdateForm';
-import styles from './index.less';
+import SearchForm from './components/SearchForm';
+import styles from '../global.less';
 
 
-const getValue = obj =>
-  Object.keys(obj)
-    .map(key => obj[key])
-    .join(',');
-
-
-/* eslint react/no-multi-comp:0 */
 @connect(({ adminLink, loading }) => ({
   adminLink,
   loading: loading.models.adminLink,
 }))
 @Form.create()
-class TableList extends PureComponent {
+class LinkPage extends PureComponent {
   state = {
     // 控制创建友情链接的modal状态
     createModalVisible: false,
@@ -36,26 +23,13 @@ class TableList extends PureComponent {
   };
 
   columns = [
+    { title: 'ID', dataIndex: 'id' },
+    { title: '名称', dataIndex: 'name' },
+    { title: '网址', dataIndex: 'url' },
+    { title: '创建时间', dataIndex: 'ct', render: formatDateTime },
+    { title: '更新时间', dataIndex: 'ut', render: formatDateTime },
     {
-      title: 'ID',
-      dataIndex: 'id',
-    }, {
-      title: '名称',
-      dataIndex: 'name',
-    }, {
-      title: '网址',
-      dataIndex: 'url',
-    }, {
-      title: '创建时间',
-      dataIndex: 'ct',
-      render: formatDateTime,
-    }, {
-      title: '更新时间',
-      dataIndex: 'ut',
-      render: formatDateTime,
-    }, {
-      title: '状态',
-      dataIndex: 'is_del',
+      title: '状态', dataIndex: 'is_del',
       render: text => (
         <Fragment>
           {text ? <Badge status="error" text="已删除"/> : <Badge status="success" text="展示中"/>}
@@ -73,44 +47,19 @@ class TableList extends PureComponent {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch({ type: 'adminLink/getLinks' });
+    dispatch({ type: 'adminLink/get' });
   }
-
-  handleStandardTableChange = (pagination, filtersArg, sorter) => {
-    const { dispatch } = this.props;
-    const { formValues } = this.state;
-
-    const filters = Object.keys(filtersArg).reduce((obj, key) => {
-      const newObj = { ...obj };
-      newObj[key] = getValue(filtersArg[key]);
-      return newObj;
-    }, {});
-
-    const params = {
-      currentPage: pagination.current,
-      pageSize: pagination.pageSize,
-      ...formValues,
-      ...filters,
-    };
-    if (sorter.field) {
-      params.sorter = `${sorter.field}_${sorter.order}`;
-    }
-
-    dispatch({
-      type: 'rule/fetch',
-      payload: params,
-    });
-  };
-
 
   render() {
     const { adminLink: { data }, loading } = this.props;
     const { createModalVisible, updateModalVisible } = this.state;
+
     // 创建
     const parentMethods = {
       handleCreateLink: this.handleCreateLink,
       handleChangeModalVisible: this.handleChangeModalVisible,
     };
+
     // 更新
     const updateMethods = {
       handleUpdateModalVisible: this.handleUpdateModalVisible,
@@ -120,6 +69,9 @@ class TableList extends PureComponent {
     return (
       <div>
         <Card bordered={false}>
+          <div className={styles.tableListForm}>
+            <SearchForm/>
+          </div>
           <div className={styles.tableList}>
             <div className={styles.tableListOperator}>
               <Button
@@ -158,18 +110,22 @@ class TableList extends PureComponent {
   * */
   handleCreateLink = fields => {
     const { dispatch } = this.props;
-    dispatch({ type: 'adminLink/create', payload: fields });
-    message.success('添加成功');
-    this.handleChangeModalVisible();
+    dispatch({
+      type: 'adminLink/create',
+      payload: fields,
+      callback: () => {
+        this.handleChangeModalVisible();
+      },
+    });
   };
 
   /*
   * 修改更新连接ModalVisible的状态
   * */
-  handleUpdateModalVisible = flag => {
-    this.setState({
-      updateModalVisible: !!flag,
-    });
+  handleUpdateModalVisible = (flag, linkDetail = {}) => {
+    const { dispatch } = this.props;
+    dispatch({ type: 'adminLink/setState', payload: { linkDetail } });
+    this.setState({ updateModalVisible: !!flag });
   };
 
   /*
@@ -180,10 +136,24 @@ class TableList extends PureComponent {
     dispatch({
       type: 'adminLink/update',
       payload: fields,
+      callback: () => {
+        this.handleUpdateModalVisible();
+      },
     });
-    message.success('更修改成功');
-    this.handleUpdateModalVisible();
+  };
+
+  /*
+  * 分页
+  * */
+  handleStandardTableChange = (pagination, filtersArg, sorter) => {
+    const { dispatch, adminLink: { searchData } } = this.props;
+    const payload = {
+      page: pagination['current'],
+      limit: pagination['pageSize'],
+      ...searchData,
+    };
+    dispatch({ type: 'adminLink/get', payload });
   };
 }
 
-export default TableList;
+export default LinkPage;

@@ -1,14 +1,18 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, mixins
 from rest_framework.response import Response
 
 from blog_extra.models import Setting
 from blog_link.models import Link
 from blog_tag.models import Tag
+from blog_account.models import Account
+from utils import backends
 from utils.pagination import LimitPagePagination
 from .permissions import IsSuperuserPermission
 from .serializers import LinkViewSetListSerializer, LinkViewSetCreateSerializer, LinkViewSetUpdateSerializer, \
     LinkViewSetRetrieveSerializer, TagViewSetListSerializer, TagViewSetCreateSerializer, TagViewSetRetrieveSerializer, \
-    TagViewSetUpdateSerializer, SettingViewSetListSerializer, SettingViewSetUpdateSerializer
+    TagViewSetUpdateSerializer, SettingViewSetListSerializer, SettingViewSetUpdateSerializer, AccountViewSetListSerializer, \
+    AccountViewSetUpdateSerializer
 
 
 # Create your views here.
@@ -34,6 +38,9 @@ class LinkViewSet(mixins.ListModelMixin,
     queryset = Link.objects.order_by("-id")
     permission_classes = (IsSuperuserPermission,)
     pagination_class = LimitPagePagination
+    filter_backends = (backends.SearchBackend, DjangoFilterBackend)
+    search_fields = ('name', 'url')
+    filter_fields = ('is_del',)
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -96,3 +103,26 @@ class SettingViewSet(mixins.ListModelMixin,
         站点设置
         """
         return Response(self.get_serializer(self.get_queryset().last()).data)
+
+
+class AccountViewSet(mixins.ListModelMixin,
+                     mixins.UpdateModelMixin,
+                     viewsets.GenericViewSet):
+    """
+    list:
+    用户-列表
+
+    update:
+    用户-更新
+    """
+    queryset = Account.objects.order_by("-id")
+    permission_classes = (IsSuperuserPermission,)
+    pagination_class = LimitPagePagination
+    filter_backends = (backends.SearchBackend, DjangoFilterBackend)
+    search_fields = ('email', 'nick_name')
+    filter_fields = ('is_active',)
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return AccountViewSetListSerializer
+        return AccountViewSetUpdateSerializer
