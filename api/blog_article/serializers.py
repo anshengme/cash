@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from .models import Article
 
 
 class SeriesArticleViewSetListSerializer(serializers.Serializer):
@@ -28,3 +29,7 @@ class ArticleViewSetListSerializer(serializers.Serializer):
 
 class ArchiveViewSetListSerializer(SeriesArticleViewSetListSerializer):
     release_time = serializers.DateTimeField()
+
+
+class ArticleViewSetRetrieveSerializer(ArticleViewSetListSerializer):
+    content = serializers.CharField()

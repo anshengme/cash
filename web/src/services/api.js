@@ -95,3 +95,7 @@ export async function adminUpdateSetting(params) {
     isAuth: true,
   });
 }
+
+export async function articleDetail(url) {
+  return request(`/api/article/${url}/`);
+}

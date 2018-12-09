@@ -3,21 +3,27 @@ from rest_framework.response import Response
 
 from utils.pagination import LimitPagePagination
 from .models import Article
-from .serializers import HotArticleViewSetListSerializer, SeriesArticleViewSetListSerializer, ArticleViewSetListSerializer, \
-    ArchiveViewSetListSerializer
+from .serializers import HotArticleViewSetListSerializer, SeriesArticleViewSetListSerializer, \
+    ArticleViewSetListSerializer, ArchiveViewSetListSerializer, ArticleViewSetRetrieveSerializer
 
 
 # Create your views here.
 
 class ArticleViewSet(mixins.ListModelMixin,
+                     mixins.RetrieveModelMixin,
                      viewsets.GenericViewSet):
     """
     list:
     文章列表
     """
+    lookup_field = 'url'
     queryset = Article.objects.filter(is_del=False, type=1, status=1).order_by("-release_time")
-    serializer_class = ArticleViewSetListSerializer
     pagination_class = LimitPagePagination
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return ArticleViewSetListSerializer
+        return ArticleViewSetRetrieveSerializer
 
 
 class HotArticleViewSet(mixins.ListModelMixin,
