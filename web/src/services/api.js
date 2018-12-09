@@ -103,3 +103,25 @@ export async function articleDetail(url) {
 export async function tagArticles(name) {
   return request(`/api/tag/${name}/`);
 }
+
+export async function AdminTags(params) {
+  return request(`/api/admin/tag/?${stringify(params)}`, {
+    isAuth: true,
+  });
+}
+
+export async function createTag(params) {
+  return request('/api/admin/tag/', {
+    method: 'POST',
+    body: params,
+    isAuth: true,
+  });
+}
+
+export async function updateTag(params, id) {
+  return request(`/api/admin/tag/${id}/`, {
+    method: 'PUT',
+    body: params,
+    isAuth: true,
+  });
+}

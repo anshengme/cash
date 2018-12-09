@@ -8,6 +8,7 @@ export default [
       { path: '/admin/article/create', component: './admin/ArticleCreate' },
       { path: '/admin/article', component: './admin/Article' },
       { path: '/admin/comment', component: './admin/Comment' },
+      { path: '/admin/tag', component: './admin/Tag' },
       { path: '/admin/link', component: './admin/Link' },
       { path: '/admin/user', component: './admin/User' },
       { path: '/admin/setting', component: './admin/Setting' },

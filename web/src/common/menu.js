@@ -28,6 +28,10 @@ const menuData = [
     icon: 'message',
     path: '/admin/comment/',
   }, {
+    name: '标签管理',
+    icon: 'tag',
+    path: '/admin/tag/',
+  }, {
     name: '友情链接',
     icon: 'link',
     path: '/admin/link/',

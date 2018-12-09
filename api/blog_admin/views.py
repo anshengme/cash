@@ -75,6 +75,9 @@ class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.order_by("-id")
     permission_classes = (IsSuperuserPermission,)
     pagination_class = LimitPagePagination
+    filter_backends = (backends.SearchBackend, DjangoFilterBackend)
+    search_fields = ('name', )
+    filter_fields = ('is_del',)
 
     def get_serializer_class(self):
         if self.action == 'list':
