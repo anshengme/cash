@@ -75,3 +75,23 @@ export async function updateUser(params, id) {
     isAuth: true,
   });
 }
+
+export async function adminArticle(params) {
+  return request(`/api/admin/article/?${stringify(params)}`, {
+    isAuth: true,
+  });
+}
+
+export async function adminSetting() {
+  return request('/api/admin/settings/', {
+    isAuth: true,
+  });
+}
+
+export async function adminUpdateSetting(params) {
+  return request('/api/admin/settings/', {
+    method: 'POST',
+    body: params,
+    isAuth: true,
+  });
+}

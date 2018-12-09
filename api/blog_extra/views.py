@@ -1,19 +1,19 @@
 from rest_framework import viewsets, mixins
 from rest_framework.response import Response
 
-from .models import Setting
-from .serializers import SettingViewSetListSerializer
+from .models import Settings
+from .serializers import SettingsViewSetListSerializer
 
 
 # Create your views here.
 
-class SettingViewSet(mixins.ListModelMixin,
-                     viewsets.GenericViewSet):
-    queryset = Setting.objects.all()
-    serializer_class = SettingViewSetListSerializer
+class SettingsViewSet(mixins.ListModelMixin,
+                      viewsets.GenericViewSet):
+    queryset = Settings.objects.all()
+    serializer_class = SettingsViewSetListSerializer
 
     def list(self, request, *args, **kwargs):
         """
-        站点设置
+        设置
         """
-        return Response(self.get_serializer(self.get_queryset().last()).data)
+        return Response(self.get_serializer(self.get_queryset(), many=True).data)

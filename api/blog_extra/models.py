@@ -1,15 +1,12 @@
 from django.db import models
 
-from utils.models import BaseModel
-
 
 # Create your models here.
 
-class Setting(BaseModel):
-    title = models.TextField(help_text="标题")
-    keywords = models.TextField(help_text="关键字")
-    description = models.TextField(help_text="描述")
-    avatar = models.CharField(max_length=64, default='default/avatar.png', help_text="头像")
+class Settings(models.Model):
+    key = models.CharField(max_length=32, unique=True, help_text="Key")
+    value = models.CharField(max_length=128, null=True, blank=True, help_text="Value")
+    desc = models.CharField(max_length=64, null=True, blank=True, help_text="描述")
 
     class Meta:
-        db_table = "setting"
+        db_table = "settings"

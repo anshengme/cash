@@ -1,10 +1,20 @@
-- model: blog_extra.setting
+- model: blog_extra.settings
   pk: 1
   fields:
-    ct: "2018-12-03 10:07:23"
-    ut: "2018-12-03 10:07:23"
-    is_del: False
-    title: "Welcome to ansheng's blog!"
-    keywords: "关键字1,关键字2"
-    description: "描述"
-    avatar: "https://cash.ansheng.me/static/avatar.27ec84cd.png"
+    key: "title"
+    value: "Welcome to ansheng's blog!"
+    desc: "标题"
+
+- model: blog_extra.settings
+  pk: 2
+  fields:
+    key: "keywords"
+    value: "关键字1,关键字2"
+    desc: "关键字"
+
+- model: blog_extra.settings
+  pk: 3
+  fields:
+    key: "description"
+    value: "描述"
+    desc: "描述"

@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
 from blog_account.models import Account
-from blog_extra.models import Setting
 from blog_link.models import Link
 from blog_tag.models import Tag
+from blog_article.models import Article
 
 
 class LinkViewSetListSerializer(serializers.ModelSerializer):
@@ -71,23 +71,6 @@ class TagViewSetRetrieveSerializer(TagViewSetCreateSerializer):
     pass
 
 
-class SettingViewSetUpdateSerializer(serializers.ModelSerializer):
-    """
-    站点设置-更新
-    """
-
-    class Meta:
-        model = Setting
-        fields = '__all__'
-
-
-class SettingViewSetListSerializer(SettingViewSetUpdateSerializer):
-    """
-    站点设置-列表（详情）
-    """
-    pass
-
-
 class AccountViewSetListSerializer(serializers.ModelSerializer):
     """
     用户-列表
@@ -108,3 +91,55 @@ class AccountViewSetUpdateSerializer(serializers.Serializer):
         instance.is_active = validated_data.get("is_active", instance.is_active)
         instance.save()
         return instance
+
+
+class ArticleViewSetListSerializer(serializers.Serializer):
+    """
+    文章-列表
+    """
+    id = serializers.IntegerField()
+    title = serializers.CharField()
+    status = serializers.IntegerField()
+    type = serializers.IntegerField()
+    view_count = serializers.IntegerField()
+    release_time = serializers.DateTimeField()
+    ct = serializers.DateTimeField()
+
+
+class ArticleViewSetCreateSerializer(serializers.ModelSerializer):
+    """
+    文章-创建
+    """
+
+    class Meta:
+        model = Article
+        fields = "__all__"
+
+
+class ArticleViewSetUpdateSerializer(ArticleViewSetCreateSerializer):
+    """
+    文章-更新
+    """
+    pass
+
+
+class ArticleViewSetRetrieveSerializer(ArticleViewSetCreateSerializer):
+    """
+    文章-详情
+    """
+    pass
+
+
+class SettingsViewSetListSerializer(serializers.Serializer):
+    """
+    设置-列表
+    """
+    key = serializers.CharField()
+    value = serializers.CharField()
+
+
+class SettingsViewSetCreateSerializer(SettingsViewSetListSerializer):
+    """
+    设置-创建 or 更新
+    """
+    pass
