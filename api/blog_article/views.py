@@ -16,7 +16,7 @@ class ArticleViewSet(mixins.ListModelMixin,
     list:
     文章列表
     """
-    lookup_field = 'url'
+    lookup_field = 'url__iexact'
     queryset = Article.objects.filter(is_del=False, type=1, status=1).order_by("-release_time")
     pagination_class = LimitPagePagination
 

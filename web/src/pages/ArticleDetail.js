@@ -19,8 +19,8 @@ const IconText = ({ type, text, theme }) => (
 class ArticleDetailPage extends Component {
 
   componentDidMount() {
-    const { dispatch, location } = this.props;
-    const url = location.pathname.split('/')[2];
+    const { dispatch, match } = this.props;
+    const url = match.params.url;
     dispatch({ type: 'articleDetail/get', payload: url });
   }
 

@@ -99,3 +99,7 @@ export async function adminUpdateSetting(params) {
 export async function articleDetail(url) {
   return request(`/api/article/${url}/`);
 }
+
+export async function tagArticles(name) {
+  return request(`/api/tag/${name}/`);
+}

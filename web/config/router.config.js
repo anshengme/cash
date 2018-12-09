@@ -17,8 +17,9 @@ export default [
     component: '../layouts/BaseLayout',
     routes: [
       { path: '/', component: './index' },
-      { path: '/article/:id', component: './ArticleDetail' },
+      { path: '/article/:url', component: './ArticleDetail' },
       { path: '/archive/', component: './Archive' },
+      { path: '/tag/:name', component: './TagDetail' },
     ],
   },
 ];
