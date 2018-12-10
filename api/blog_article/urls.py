@@ -1,5 +1,4 @@
-from rest_framework.routers import DefaultRouter
-
+from rest_framework_nested.routers import DefaultRouter, NestedDefaultRouter
 from . import views
 
 router = DefaultRouter()
@@ -7,6 +6,10 @@ router.register('hot', views.HotArticleViewSet, base_name='hot-article')
 router.register('series', views.SeriesArticleViewSet, base_name='series-series')
 router.register('archive', views.ArchiveViewSet, base_name='archive')
 router.register('', views.ArticleViewSet, base_name='article')
+
+article_router = NestedDefaultRouter(router, '', lookup='article')
+article_router.register(r'comment', views.ArticleCommentViewSet, base_name='article-comment')
+
 urlpatterns = []
 
-urlpatterns += router.urls
+urlpatterns += router.urls + article_router.urls

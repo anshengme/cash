@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import { Avatar, Button, Col, Divider, Icon, Input, Row } from 'antd';
+import { Button, Col, Comment, Divider, Form, Icon, Input, List, Row, Modal } from 'antd';
 import { connect } from 'dva';
 import styles from './ArticleDetail.less';
 import indexStyles from './index.less';
 import Link from 'umi/link';
-import { formatDate } from '@/utils/utils';
+import { formatDate, formatDateTime } from '@/utils/utils';
 
 const { TextArea } = Input;
 
@@ -15,17 +15,76 @@ const IconText = ({ type, text, theme }) => (
   </span>
 );
 
+// 评论
+const CommentItem = ({ comment, handleReplyComment }) => {
+  return <Comment
+    actions={[<span onClick={() => handleReplyComment(comment)}>回复</span>]}
+    author={comment['account']['nick_name']}
+    avatar={`/media/${comment['account']['avatar']}`}
+    content={comment['content']}
+    datetime={formatDateTime(comment['ct'])}
+  >
+    {
+      comment['children'] && comment['children'].length > 0 ?
+        comment['children'].map((comment) =>
+          <CommentItem handleReplyComment={handleReplyComment} key={comment['id']} comment={comment}/>,
+        ) :
+        <Fragment/>
+    }
+  </Comment>;
+};
+
+// 评论列表
+const CommentList = ({ comments, handleReplyComment }) => (
+  <List
+    dataSource={comments}
+    header={`${comments.length} 评论`}
+    itemLayout="horizontal"
+    renderItem={props => <CommentItem handleReplyComment={handleReplyComment} key={props['id']} comment={props}/>}
+  />
+);
+
+// 评论框
+const Editor = ({ onChange, onSubmit, submitting, value }) => (
+  <div>
+    <Form.Item>
+      <TextArea rows={4} onChange={onChange} value={value}/>
+    </Form.Item>
+    <Form.Item>
+      <Button
+        htmlType="submit"
+        loading={submitting}
+        onClick={onSubmit}
+        type="primary"
+      >
+        添加评论
+      </Button>
+    </Form.Item>
+  </div>
+);
+
+
 @connect(({ articleDetail }) => ({ articleDetail }))
 class ArticleDetailPage extends Component {
-
   componentDidMount() {
     const { dispatch, match } = this.props;
     const url = match.params.url;
     dispatch({ type: 'articleDetail/get', payload: url });
+    dispatch({ type: 'articleDetail/getComments', payload: url });
   }
 
+  state = {
+    submitting: false,
+    commentContent: '',
+    replyCommentContent: '',
+    replyCommentisible: false,
+    comment: {},
+  };
+
   render() {
-    const { article } = this.props.articleDetail;
+    const { article, comments } = this.props.articleDetail;
+    const { submitting, commentContent, replyCommentContent } = this.state;
+
     return (
       <Row gutter={8}>
         <Col span={17}>
@@ -59,62 +118,87 @@ class ArticleDetailPage extends Component {
               {article['content']}
             </div>
           </div>
+
           <div id="comment" className={styles.comment}>
-            <h2>评论</h2>
-            <TextArea autosize={{ minRows: 2 }}/>
-            <Button type="primary">提交评论</Button>
-            <Divider/>
-            <ul>
-              <li>
-                <Row gutter={6}>
-                  <Col span={2}><Avatar size="large">一</Avatar></Col>
-                  <Col span={22}>
-                    <div className={styles.comment_nick_name}>一叶知秋</div>
-                    <div className={styles.comment_content}>这里是评论的内容内容</div>
-                    <div className={styles.comment_date_time}>2018-11-30 11:28:06</div>
-                  </Col>
-                </Row>
-                <Divider/>
-              </li>
-              <li>
-                <Row gutter={6}>
-                  <Col span={2}><Avatar size="large">叶</Avatar></Col>
-                  <Col span={22}>
-                    <div className={styles.comment_nick_name}>一叶知秋</div>
-                    <div className={styles.comment_content}>这里是评论的内容内容</div>
-                    <div className={styles.comment_date_time}>2018-11-30 11:28:06</div>
-                  </Col>
-                </Row>
-                <Divider/>
-              </li>
-              <li>
-                <Row gutter={6}>
-                  <Col span={2}><Avatar size="large">知</Avatar></Col>
-                  <Col span={22}>
-                    <div className={styles.comment_nick_name}>一叶知秋</div>
-                    <div className={styles.comment_content}>这里是评论的内容内容</div>
-                    <div className={styles.comment_date_time}>2018-11-30 11:28:06</div>
-                  </Col>
-                </Row>
-                <Divider/>
-              </li>
-              <li>
-                <Row gutter={6}>
-                  <Col span={2}><Avatar size="large">秋</Avatar></Col>
-                  <Col span={22}>
-                    <div className={styles.comment_nick_name}>一叶知秋</div>
-                    <div className={styles.comment_content}>这里是评论的内容内容</div>
-                    <div className={styles.comment_date_time}>2018-11-30 11:28:06</div>
-                  </Col>
-                </Row>
-              </li>
-            </ul>
+            {
+              comments.length > 0 && <CommentList
+                handleReplyComment={this.handleReplyComment}
+                comments={comments}
+              />
+            }
+            <Comment
+              content={(
+                <Editor
+                  onChange={this.handleChange}
+                  onSubmit={this.handleSubmit}
+                  submitting={submitting}
+                  value={commentContent}
+                />
+              )}
+            />
+            <Modal
+              closable={false}
+              visible={this.state.replyCommentisible}
+              onOk={this.handleSubmitReplyComment}
+              onCancel={() => this.handleReplyComment({})}
+            >
+              <TextArea rows={4} onChange={this.handleReplyCommentChange} value={replyCommentContent}/>
+            </Modal>
           </div>
         </Col>
-        <Col span={7}/>
       </Row>
     );
   }
+
+  handleSubmit = () => {
+    if (!this.state.commentContent) {
+      return;
+    }
+    const { dispatch } = this.props;
+    this.setState({ submitting: true });
+    dispatch({
+      type: 'articleDetail/createComment',
+      payload: {
+        content: this.state.commentContent,
+      },
+      callback: () => {
+        this.setState({ submitting: false, commentContent: '' });
+      },
+    });
+  };
+
+  handleChange = e => {
+    this.setState({ commentContent: e.target.value });
+  };
+
+  handleReplyComment = comment => {
+    this.setState({
+      replyCommentisible: !this.state.replyCommentisible,
+      comment,
+    });
+  };
+
+  handleReplyCommentChange = e => {
+    this.setState({ replyCommentContent: e.target.value });
+  };
+
+  handleSubmitReplyComment = () => {
+    if (!this.state.replyCommentContent) {
+      return;
+    }
+    const { dispatch } = this.props;
+    this.setState({ submitting: true });
+    dispatch({
+      type: 'articleDetail/createComment',
+      payload: {
+        reply: this.state.comment.id,
+        content: this.state.replyCommentContent,
+      },
+      callback: () => {
+        this.setState({ replyCommentisible: false, replyCommentContent: '', comment: '' });
+      },
+    });
+  };
 }
 
 export default ArticleDetailPage;

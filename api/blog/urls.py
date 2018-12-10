@@ -9,6 +9,7 @@ urlpatterns = [
     path('extra/', include('blog_extra.urls')),
     path('admin/', include('blog_admin.urls')),
     path('article/', include('blog_article.urls')),
+    path('comment/', include('blog_comment.urls')),
 ]
 
 if settings.DEBUG:

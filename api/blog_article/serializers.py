@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Article
+
+from utils.serializers import AccountInfoSerializers
 
 
 class SeriesArticleViewSetListSerializer(serializers.Serializer):
@@ -32,4 +33,17 @@ class ArchiveViewSetListSerializer(SeriesArticleViewSetListSerializer):
 
 
 class ArticleViewSetRetrieveSerializer(ArticleViewSetListSerializer):
+    id = serializers.IntegerField()
     content = serializers.CharField()
+
+
+class ArticleCommentViewSetListSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    account = AccountInfoSerializers()
+    ct = serializers.DateTimeField()
+    content = serializers.CharField()
+    reply_id = serializers.SerializerMethodField()
+    children = serializers.ListField(default=[])
+
+    def get_reply_id(self, instance):
+        return instance.reply.pk if instance.reply else None

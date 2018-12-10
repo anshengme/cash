@@ -100,6 +100,10 @@ export async function articleDetail(url) {
   return request(`/api/article/${url}/`);
 }
 
+export async function articleDetailComment(url) {
+  return request(`/api/article/${url}/comment/`);
+}
+
 export async function tagArticles(name) {
   return request(`/api/tag/${name}/`);
 }
@@ -125,3 +129,12 @@ export async function updateTag(params, id) {
     isAuth: true,
   });
 }
+
+export async function createComment(params) {
+  return request(`/api/comment/`, {
+    method: 'POST',
+    body: params,
+    isAuth: true,
+  });
+}
+

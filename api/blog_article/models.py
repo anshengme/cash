@@ -1,4 +1,3 @@
-import random
 from django.db import models
 
 from blog import static
@@ -24,7 +23,8 @@ class Article(BaseModel):
 
     @property
     def comment_count(self):
-        return random.randint(20, 100)
+        """ 评论数量 """
+        return self.comment_set.filter(reply__isnull=True).count()
 
     class Meta:
         db_table = "article"
