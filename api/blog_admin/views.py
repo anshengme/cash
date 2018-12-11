@@ -76,7 +76,7 @@ class TagViewSet(viewsets.ModelViewSet):
     permission_classes = (IsSuperuserPermission,)
     pagination_class = LimitPagePagination
     filter_backends = (backends.SearchBackend, DjangoFilterBackend)
-    search_fields = ('name', )
+    search_fields = ('name',)
     filter_fields = ('is_del',)
 
     def get_serializer_class(self):

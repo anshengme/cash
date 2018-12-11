@@ -24,10 +24,6 @@ const menuData = [
       },
     ],
   }, {
-    name: '评论管理',
-    icon: 'message',
-    path: '/admin/comment/',
-  }, {
     name: '标签管理',
     icon: 'tag',
     path: '/admin/tag/',

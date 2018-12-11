@@ -2,13 +2,14 @@ import React, { PureComponent } from 'react';
 import { Avatar, Divider, Dropdown, Icon, Menu, Spin, Tooltip } from 'antd';
 import Debounce from 'lodash-decorators/debounce';
 import Link from 'umi/link';
+import { MediaPath } from '@/config';
 import styles from './index.less';
 
-export default class GlobalHeader extends PureComponent {
+
+class GlobalHeader extends PureComponent {
   componentWillUnmount() {
     this.triggerResizeEvent.cancel();
   }
-
 
   toggle = () => {
     const { collapsed, onCollapse } = this.props;
@@ -31,6 +32,7 @@ export default class GlobalHeader extends PureComponent {
       isMobile,
       logo,
       onMenuClick,
+      logOut,
     } = this.props;
     const menu = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
@@ -39,7 +41,7 @@ export default class GlobalHeader extends PureComponent {
         </Menu.Item>
         <Menu.Divider/>
         <Menu.Item key="logout">
-          <Icon type="logout"/>退出登录
+          <span onClick={logOut}><Icon type="logout"/>退出登录</span>
         </Menu.Item>
       </Menu>
     );
@@ -67,11 +69,11 @@ export default class GlobalHeader extends PureComponent {
               <Icon type="question-circle-o"/>
             </a>
           </Tooltip>
-          {currentUser.name ? (
+          {currentUser['nick_name'] ? (
             <Dropdown overlay={menu}>
               <span className={`${styles.action} ${styles.account}`}>
-                <Avatar size="small" className={styles.avatar} src={currentUser.avatar}/>
-                <span className={styles.name}>{currentUser.name}</span>
+                <Avatar size="small" className={styles.avatar} src={`${MediaPath}/${currentUser['avatar']}`}/>
+                <span className={styles.name}>{currentUser['nick_name']}</span>
               </span>
             </Dropdown>
           ) : (
@@ -82,3 +84,5 @@ export default class GlobalHeader extends PureComponent {
     );
   }
 }
+
+export default GlobalHeader;

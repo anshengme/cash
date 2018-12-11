@@ -25,7 +25,7 @@ class SearchForm extends Component {
               {getFieldDecorator('type')(
                 <Select placeholder="请选择" style={{ width: '100%' }}>
                   <Option value={1}>文章</Option>
-                  <Option value={2}>系列</Option>
+                  <Option value={2}>专题</Option>
                 </Select>,
               )}
             </FormItem>

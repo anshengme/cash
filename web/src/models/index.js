@@ -1,4 +1,4 @@
-import { Links, Tags, HotArticles, SeriesArticles, Articles } from '@/services/api';
+import { Links, Tags, HotArticles, TopicArticles, Articles } from '@/services/api';
 
 export default {
   namespace: 'index',
@@ -10,7 +10,7 @@ export default {
       data: [],
     },
     hotArticles: [],
-    seriesArticles: [],
+    topicArticles: [],
   },
 
   effects: {
@@ -28,11 +28,11 @@ export default {
         payload: { articles },
       });
     },
-    * getSeriesArticles({}, { call, put }) {
-      const seriesArticles = yield call(SeriesArticles);
+    * getTopicArticles({}, { call, put }) {
+      const topicArticles = yield call(TopicArticles);
       yield put({
         type: 'setState',
-        payload: { seriesArticles },
+        payload: { topicArticles },
       });
     },
     * getLinks({}, { call, put }) {

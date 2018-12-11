@@ -3,12 +3,12 @@ from rest_framework import serializers
 from utils.serializers import AccountInfoSerializers
 
 
-class SeriesArticleViewSetListSerializer(serializers.Serializer):
+class TopicArticleViewSetListSerializer(serializers.Serializer):
     url = serializers.CharField()
     title = serializers.CharField()
 
 
-class HotArticleViewSetListSerializer(SeriesArticleViewSetListSerializer):
+class HotArticleViewSetListSerializer(TopicArticleViewSetListSerializer):
     view_count = serializers.IntegerField()
     comment_count = serializers.IntegerField()
 
@@ -28,7 +28,7 @@ class ArticleViewSetListSerializer(serializers.Serializer):
         return instance.tags.values_list("name", flat=True)
 
 
-class ArchiveViewSetListSerializer(SeriesArticleViewSetListSerializer):
+class ArchiveViewSetListSerializer(TopicArticleViewSetListSerializer):
     release_time = serializers.DateTimeField()
 
 

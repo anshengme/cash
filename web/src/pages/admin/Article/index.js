@@ -21,7 +21,7 @@ class ArticlePage extends Component {
       title: '类型', dataIndex: 'type',
       render: text => (
         <Fragment>
-          {text === 1 ? <Tag color="#43bcfe">文章</Tag> : <Tag color="#e7711c">系列</Tag>}
+          {text === 1 ? <Tag color="#43bcfe">文章</Tag> : <Tag color="#e7711c">专题</Tag>}
         </Fragment>
       ),
     },

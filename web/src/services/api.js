@@ -26,8 +26,8 @@ export async function HotArticles() {
   return request('/api/article/hot/');
 }
 
-export async function SeriesArticles() {
-  return request('/api/article/series/');
+export async function TopicArticles() {
+  return request('/api/article/topic/');
 }
 
 export async function Articles() {

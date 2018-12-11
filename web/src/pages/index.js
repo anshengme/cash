@@ -24,13 +24,13 @@ class IndexPage extends Component {
     dispatch({ type: 'index/getLinks' });
     dispatch({ type: 'index/getTags' });
     dispatch({ type: 'index/getHotArticles' });
-    dispatch({ type: 'index/getSeriesArticles' });
+    dispatch({ type: 'index/getTopicArticles' });
     dispatch({ type: 'index/getArticles' });
   }
 
   render() {
     const { userDetail } = this.props.user;
-    const { links, tags, hotArticles, seriesArticles, articles } = this.props.index;
+    const { links, tags, hotArticles, topicArticles, articles } = this.props.index;
     return (
       <Row gutter={8}>
         <Col span={17}>
@@ -129,31 +129,32 @@ class IndexPage extends Component {
                     </Fragment>
                     :
                     <Fragment>
-                      Find me on <Link to="/">
+                      Find me on <a href="//github.com/anshengme" target="_blank">
                       <Icon type="github" theme="filled"/>
-                    </Link> and <Link to="/">
+                    </a> and <a href="mailto:ianshengme@gmail.com" target="_blank">
                       <Icon type="mail" theme="filled"/>
-                    </Link> .
+                    </a> .
                     </Fragment>
                 }
               </p>
-              <div className={style.meSearch}>
-                <Search
-                  placeholder="搜索"
-                  onSearch={value => console.log(value)}
-                  enterButton
-                />
-              </div>
+            </div>
+
+            <div className={style.meSearch}>
+              <Search
+                placeholder="搜索"
+                onSearch={value => console.log(value)}
+                enterButton
+              />
             </div>
 
             <div>
               <div className={style.rightTitle}>
-                <h2>系列文章</h2>
+                <h2>专题</h2>
               </div>
               <div className={style.rightContent}>
                 <ul>
                   {
-                    seriesArticles.map((article) =>
+                    topicArticles.map((article) =>
                       <li key={article.url}><Link to={`/article/${article.url}`}>{article.title}</Link></li>,
                     )
                   }

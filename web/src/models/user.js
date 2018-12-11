@@ -1,5 +1,6 @@
 import { Login, UserDetail } from '@/services/api';
 import { getToken, setToken, removeToken } from '@/utils/token';
+import router from 'umi/router';
 
 export default {
   namespace: 'user',
@@ -20,6 +21,7 @@ export default {
     },
     * logout({}, { call }) {
       removeToken();
+      router.push('/');
       window.location.reload();
     },
     * getUserDetail({}, { call, put }) {

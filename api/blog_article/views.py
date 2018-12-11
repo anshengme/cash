@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from utils.common import get_object_or_none, get_comments
 from utils.pagination import LimitPagePagination
 from .models import Article
-from .serializers import HotArticleViewSetListSerializer, SeriesArticleViewSetListSerializer, \
+from .serializers import HotArticleViewSetListSerializer, TopicArticleViewSetListSerializer, \
     ArticleViewSetListSerializer, ArchiveViewSetListSerializer, ArticleViewSetRetrieveSerializer, \
     ArticleCommentViewSetListSerializer
 
@@ -38,14 +38,14 @@ class HotArticleViewSet(mixins.ListModelMixin,
     serializer_class = HotArticleViewSetListSerializer
 
 
-class SeriesArticleViewSet(mixins.ListModelMixin,
-                           viewsets.GenericViewSet):
+class TopicArticleViewSet(mixins.ListModelMixin,
+                          viewsets.GenericViewSet):
     """
     list:
-    系列文章
+    专题文章
     """
     queryset = Article.objects.filter(is_del=False, type=2, status=1)
-    serializer_class = SeriesArticleViewSetListSerializer
+    serializer_class = TopicArticleViewSetListSerializer
 
 
 class ArchiveViewSet(mixins.ListModelMixin,
