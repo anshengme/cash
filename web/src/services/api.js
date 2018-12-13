@@ -138,3 +138,24 @@ export async function createComment(params) {
   });
 }
 
+export async function adminArticleCreate(params) {
+  return request(`/api/admin/article/`, {
+    method: 'POST',
+    isAuth: true,
+    body: params,
+  });
+}
+
+export async function adminArticleCreateTags() {
+  return request(`/api/admin/article/tags/`, {
+    isAuth: true,
+  });
+}
+
+export function uploadImage(params) {
+  return request(`/api/extra/image/`, {
+    method: 'POST',
+    isAuth: true,
+    body: params,
+  });
+}

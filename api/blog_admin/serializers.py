@@ -1,9 +1,10 @@
+from django.utils import timezone
 from rest_framework import serializers
 
 from blog_account.models import Account
+from blog_article.models import Article
 from blog_link.models import Link
 from blog_tag.models import Tag
-from blog_article.models import Article
 
 
 class LinkViewSetListSerializer(serializers.ModelSerializer):
@@ -110,6 +111,19 @@ class ArticleViewSetCreateSerializer(serializers.ModelSerializer):
     """
     文章-创建
     """
+    tags = serializers.ListField()
+
+    def validate_tags(self, data):
+        tags_id = []
+        for tag in data:
+            instance, _ = Tag.objects.get_or_create(name=tag)
+            tags_id.append(instance.pk)
+        return tags_id
+
+    def validate(self, attrs):
+        if attrs["status"] == 1:
+            attrs["release_time"] = timezone.now()
+        return attrs
 
     class Meta:
         model = Article
@@ -143,3 +157,7 @@ class SettingsViewSetCreateSerializer(SettingsViewSetListSerializer):
     设置-创建 or 更新
     """
     pass
+
+
+class ArticleTagsViewSetListSerializer(serializers.Serializer):
+    name = serializers.CharField()

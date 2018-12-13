@@ -6,6 +6,7 @@ router = DefaultRouter()
 router.register('link', views.LinkViewSet, base_name='link')
 router.register('tag', views.TagViewSet, base_name='tag')
 router.register('account', views.AccountViewSet, base_name='account')
+router.register('article/tags', views.ArticleTagsViewSet, base_name='article-tags')
 router.register('article', views.ArticleViewSet, base_name='article')
 router.register('settings', views.SettingsViewSet, base_name='settings')
 urlpatterns = []

@@ -5,9 +5,14 @@ import styles from './ArticleDetail.less';
 import indexStyles from './index.less';
 import Link from 'umi/link';
 import { formatDate, formatDateTime } from '@/utils/utils';
+import marked from 'marked';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/atom-one-dark.css';
 
 const { TextArea } = Input;
-
+marked.setOptions({
+  highlight: code => hljs.highlightAuto(code).value,
+});
 const IconText = ({ type, text, theme }) => (
   <span>
     <Icon type={type} theme={theme} style={{ marginRight: 8 }}/>
@@ -84,7 +89,7 @@ class ArticleDetailPage extends Component {
   render() {
     const { article, comments } = this.props.articleDetail;
     const { submitting, commentContent, replyCommentContent } = this.state;
-
+    const content = article['content'] ? marked(article['content']) : '';
     return (
       <Row gutter={8}>
         <Col span={17}>
@@ -114,8 +119,7 @@ class ArticleDetailPage extends Component {
               }
             </div>
             <Divider/>
-            <div>
-              {article['content']}
+            <div dangerouslySetInnerHTML={{ __html: content }}>
             </div>
           </div>
 

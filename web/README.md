@@ -2,5 +2,8 @@
 
 ## Plugin
 
+- antd
 - ant-design-pro
 - md5
+- marked
+- highlight.js

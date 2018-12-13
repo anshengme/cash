@@ -43,11 +43,11 @@ class IndexPage extends Component {
                     <li key={article.url}>
                       <div>
                         <span>
-                          <Icon type="eye" theme="filled" style={{ marginRight: 8 }}/>查看（{article.view_count}）
+                          <Icon type="eye" theme="filled" style={{ marginRight: 8 }}/>查看（{article["view_count"]}）
                         </span>
                         <span className={style.dot}/>
                         <span className={style.hotArticleListComment}>
-                          <Icon type="message" theme="filled" style={{ marginRight: 8 }}/>评论（{article.comment_count}）
+                          <Icon type="message" theme="filled" style={{ marginRight: 8 }}/>评论（{article["comment_count"]}）
                         </span>
                       </div>
                       <span className={style[`label${index + 1}`]}>{index + 1}</span>

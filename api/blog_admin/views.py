@@ -15,7 +15,8 @@ from .serializers import LinkViewSetListSerializer, LinkViewSetCreateSerializer,
     LinkViewSetRetrieveSerializer, TagViewSetListSerializer, TagViewSetCreateSerializer, TagViewSetRetrieveSerializer, \
     TagViewSetUpdateSerializer, AccountViewSetListSerializer, AccountViewSetUpdateSerializer, \
     ArticleViewSetListSerializer, ArticleViewSetCreateSerializer, ArticleViewSetUpdateSerializer, \
-    ArticleViewSetRetrieveSerializer, SettingsViewSetListSerializer, SettingsViewSetCreateSerializer
+    ArticleViewSetRetrieveSerializer, SettingsViewSetListSerializer, SettingsViewSetCreateSerializer, \
+    ArticleTagsViewSetListSerializer
 
 
 # Create your views here.
@@ -146,6 +147,10 @@ class ArticleViewSet(mixins.ListModelMixin,
             return ArticleViewSetUpdateSerializer
         return ArticleViewSetRetrieveSerializer
 
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        serializer._data = {"id": instance.pk}
+
 
 class SettingsViewSet(mixins.ListModelMixin,
                       mixins.CreateModelMixin,
@@ -174,3 +179,13 @@ class SettingsViewSet(mixins.ListModelMixin,
             instance.save()
         serializer = self.get_serializer(self.get_queryset(), many=True)
         return Response({item["key"]: item["value"] for item in serializer.data}, status=status.HTTP_201_CREATED)
+
+
+class ArticleTagsViewSet(mixins.ListModelMixin,
+                         viewsets.GenericViewSet):
+    """
+    创建文章-标签列表
+    """
+    queryset = Tag.objects.filter(is_del=False)
+    permission_classes = (IsSuperuserPermission,)
+    serializer_class = ArticleTagsViewSetListSerializer
