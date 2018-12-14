@@ -131,7 +131,7 @@ export async function updateTag(params, id) {
 }
 
 export async function createComment(params) {
-  return request(`/api/comment/`, {
+  return request('/api/comment/', {
     method: 'POST',
     body: params,
     isAuth: true,
@@ -139,7 +139,7 @@ export async function createComment(params) {
 }
 
 export async function adminArticleCreate(params) {
-  return request(`/api/admin/article/`, {
+  return request('/api/admin/article/', {
     method: 'POST',
     isAuth: true,
     body: params,
@@ -147,14 +147,28 @@ export async function adminArticleCreate(params) {
 }
 
 export async function adminArticleCreateTags() {
-  return request(`/api/admin/article/tags/`, {
+  return request('/api/admin/article/tags/', {
     isAuth: true,
   });
 }
 
 export function uploadImage(params) {
-  return request(`/api/extra/image/`, {
+  return request('/api/extra/image/', {
     method: 'POST',
+    isAuth: true,
+    body: params,
+  });
+}
+
+export function adminArticleCreateDetail(params) {
+  return request(`/api/admin/article/${params}/`, {
+    isAuth: true,
+  });
+}
+
+export async function adminArticleUpdate(params, id) {
+  return request(`/api/admin/article/${id}/`, {
+    method: 'PUT',
     isAuth: true,
     body: params,
   });

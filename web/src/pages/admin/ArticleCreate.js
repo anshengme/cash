@@ -45,20 +45,31 @@ class ArticleCreate extends PureComponent {
     uploadImageVisible: false,
     previewImage: '',
     fileList: [],
-    value: '',
-    keywords: '',
   };
 
   componentDidMount() {
-    const { dispatch } = this.props;
+    const { dispatch, location } = this.props;
     dispatch({ type: 'adminArticleCreate/getTags' });
+    const { id } = location.query;
+    if (id) {
+      dispatch({ type: 'adminArticleCreate/getDetail', payload: id });
+    } else {
+      dispatch({
+        type: 'adminArticleCreate/setState',
+        payload: {
+          article: {},
+          value: '',
+          output: '',
+        },
+      });
+    }
   }
 
 
   render() {
     const { form: { getFieldDecorator } } = this.props;
-    const { previewVisible, previewImage, fileList, value, output, keywords } = this.state;
-    const { tags } = this.props.adminArticleCreate;
+    const { previewVisible, previewImage, fileList } = this.state;
+    const { tags, article, value, output } = this.props.adminArticleCreate;
 
     return (
       <Card className={styles.card} bordered={false}>
@@ -88,6 +99,7 @@ class ArticleCreate extends PureComponent {
               <FormItem {...formItemLayout} label="标题">
                 {getFieldDecorator('title', {
                   rules: [{ required: true, message: '请输入标题' }],
+                  initialValue: article ? article['title'] : null,
                 })(
                   <Input placeholder="请输入标题"/>,
                 )}
@@ -95,6 +107,7 @@ class ArticleCreate extends PureComponent {
               <FormItem {...formItemLayout} label="URL">
                 {getFieldDecorator('url', {
                   rules: [{ required: true, message: '请输入URL' }],
+                  initialValue: article ? article['url'] : null,
                 })(
                   <Input style={{ width: '100%' }} placeholder="请输入URL"/>,
                 )}
@@ -103,6 +116,7 @@ class ArticleCreate extends PureComponent {
               <FormItem {...formItemLayout} label="摘要">
                 {getFieldDecorator('description', {
                   rules: [{ required: true, message: '请输入摘要' }],
+                  initialValue: article ? article['description'] : null,
                 })(
                   <TextArea rows={3} placeholder="请输入摘要"/>,
                 )}
@@ -110,6 +124,7 @@ class ArticleCreate extends PureComponent {
               <FormItem {...formItemLayout} label="标签">
                 {getFieldDecorator('tags', {
                   rules: [{ required: true, message: '请选择标签' }],
+                  initialValue: article ? article['tags'] : [],
                 })(
                   <Select
                     mode="tags"
@@ -121,15 +136,6 @@ class ArticleCreate extends PureComponent {
                       <Option key={tag['name']}>{tag['name']}</Option>,
                     )}
                   </Select>,
-                )}
-              </FormItem>
-
-              <FormItem {...formItemLayout} label="关键字">
-                {getFieldDecorator('keywords', {
-                  rules: [{ required: true, message: '请输入关键字' }],
-                  initialValue: keywords,
-                })(
-                  <Input placeholder="请输入关键字"/>,
                 )}
               </FormItem>
 
@@ -154,7 +160,7 @@ class ArticleCreate extends PureComponent {
                   <FormItem {...selectFormItemLayout} label="状态">
                     {getFieldDecorator('status', {
                       rules: [{ required: true, message: '请选择状态' }],
-                      initialValue: 1,
+                      initialValue: article ? article['status'] : 1,
                     })(
                       <Select style={{ width: '100%' }}>
                         <Option value={1}>发布</Option>
@@ -167,7 +173,7 @@ class ArticleCreate extends PureComponent {
                   <FormItem {...selectFormItemLayout} label="类型">
                     {getFieldDecorator('type', {
                       rules: [{ required: true, message: '请选择类型' }],
-                      initialValue: 1,
+                      initialValue: article ? article['type'] : 1,
                     })(
                       <Select style={{ width: '100%' }}>
                         <Option value={1}>文章</Option>
@@ -229,15 +235,13 @@ class ArticleCreate extends PureComponent {
     );
   }
 
-  handleTagChange = (value) => {
-    this.setState({
-      keywords: value,
-    });
-  };
-
   handleChangeContent = e => {
-    this.setState({
-      output: marked(e.target.value),
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'adminArticleCreate/setState',
+      payload: {
+        output: marked(e.target.value),
+      },
     });
   };
 
@@ -258,7 +262,9 @@ class ArticleCreate extends PureComponent {
   };
 
   handleCreateArticle = () => {
-    const { form: { validateFieldsAndScroll }, dispatch } = this.props;
+    const {
+      form: { validateFieldsAndScroll }, dispatch,
+    } = this.props;
     validateFieldsAndScroll((error, values) => {
       if (!error) {
         if (values['img']) {
@@ -268,14 +274,14 @@ class ArticleCreate extends PureComponent {
           uploadImage(formData)
             .then((response) => {
               const { path } = response;
-              const payload = { ...values, img: MediaPath + path, keywords: values.keywords.join() };
+              const payload = { ...values, img: MediaPath + path, keywords: values.tags.join() };
               dispatch({
                 type: 'adminArticleCreate/create',
                 payload,
               });
             });
         } else {
-          const payload = { ...values, keywords: values.keywords.join() };
+          const payload = { ...values, keywords: values.tags.join() };
           dispatch({
             type: 'adminArticleCreate/create',
             payload,

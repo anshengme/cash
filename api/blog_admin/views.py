@@ -151,6 +151,10 @@ class ArticleViewSet(mixins.ListModelMixin,
         instance = serializer.save()
         serializer._data = {"id": instance.pk}
 
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        serializer._data = {"id": instance.pk}
+
 
 class SettingsViewSet(mixins.ListModelMixin,
                       mixins.CreateModelMixin,

@@ -25,6 +25,8 @@ class ArticleViewSetListSerializer(serializers.Serializer):
 
     def get_tags(self, instance):
         """ 或者文章关联列表 """
+        instance.view_count += 1
+        instance.save()
         return instance.tags.values_list("name", flat=True)
 
 

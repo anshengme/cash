@@ -3,6 +3,8 @@ import { Card, Form, Tag } from 'antd';
 import { connect } from 'dva';
 import StandardTable from '@/components/StandardTable';
 import { formatDateTime } from '@/utils/utils';
+import router from 'umi/router';
+
 import styles from '../global.less';
 import SearchForm from './components/SearchForm';
 
@@ -38,7 +40,12 @@ class ArticlePage extends Component {
       title: '操作',
       render: (text, record) => (
         <Fragment>
-          <a onClick={() => this.handleChangeUserStatus(record)}>修改</a>
+          <a onClick={() => router.push({
+            pathname: '/admin/article/create',
+            query: {
+              id: record['id'],
+            },
+          })}>修改</a>
         </Fragment>
       ),
     },

@@ -130,18 +130,44 @@ class ArticleViewSetCreateSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class ArticleViewSetUpdateSerializer(ArticleViewSetCreateSerializer):
+class ArticleViewSetUpdateSerializer(serializers.ModelSerializer):
     """
     文章-更新
     """
-    pass
+    tags = serializers.ListField()
+
+    def validate_tags(self, data):
+        tags_id = []
+        for tag in data:
+            instance, _ = Tag.objects.get_or_create(name=tag)
+            tags_id.append(instance.pk)
+        return tags_id
+
+    def update(self, instance, validated_data):
+        validated_data = validated_data.copy()
+        status = validated_data.get("status")
+        if status != instance.status:
+            validated_data["release_time"] = timezone.now() if status == 1 else None
+        return super().update(instance, validated_data)
+
+    class Meta:
+        model = Article
+        fields = "__all__"
 
 
-class ArticleViewSetRetrieveSerializer(ArticleViewSetCreateSerializer):
+class ArticleViewSetRetrieveSerializer(serializers.ModelSerializer):
     """
     文章-详情
     """
-    pass
+    tags = serializers.SerializerMethodField()
+
+    def get_tags(self, instance):
+        """ 或者文章关联列表 """
+        return instance.tags.values_list("name", flat=True)
+
+    class Meta:
+        model = Article
+        fields = "__all__"
 
 
 class SettingsViewSetListSerializer(serializers.Serializer):
