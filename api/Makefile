@@ -10,7 +10,7 @@ all:
 
 
 clean:
-	rm -rf */migrations db.sqlite3
+	rm -rf */migrations
 
 
 migrate:

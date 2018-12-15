@@ -1,7 +1,10 @@
 from rest_framework import viewsets, mixins
 from rest_framework.response import Response
+from rest_framework_extensions.cache.decorators import cache_response
+from rest_framework_extensions.cache.mixins import CacheResponseMixin
 
 from utils.common import get_object_or_none, get_comments
+from utils.page_cache import calculate_cache_key
 from utils.pagination import LimitPagePagination
 from .models import Article
 from .serializers import HotArticleViewSetListSerializer, TopicArticleViewSetListSerializer, \
@@ -11,7 +14,8 @@ from .serializers import HotArticleViewSetListSerializer, TopicArticleViewSetLis
 
 # Create your views here.
 
-class ArticleViewSet(mixins.ListModelMixin,
+class ArticleViewSet(CacheResponseMixin,
+                     mixins.ListModelMixin,
                      mixins.RetrieveModelMixin,
                      viewsets.GenericViewSet):
     """
@@ -31,7 +35,8 @@ class ArticleViewSet(mixins.ListModelMixin,
         return queryset.filter(type=1) if self.action == 'list' else queryset
 
 
-class HotArticleViewSet(mixins.ListModelMixin,
+class HotArticleViewSet(CacheResponseMixin,
+                        mixins.ListModelMixin,
                         viewsets.GenericViewSet):
     """
     list:
@@ -41,7 +46,8 @@ class HotArticleViewSet(mixins.ListModelMixin,
     serializer_class = HotArticleViewSetListSerializer
 
 
-class TopicArticleViewSet(mixins.ListModelMixin,
+class TopicArticleViewSet(CacheResponseMixin,
+                          mixins.ListModelMixin,
                           viewsets.GenericViewSet):
     """
     list:
@@ -56,6 +62,7 @@ class ArchiveViewSet(mixins.ListModelMixin,
     queryset = Article.objects.filter(is_del=False, type=1, status=1).order_by("-release_time")
     serializer_class = ArchiveViewSetListSerializer
 
+    @cache_response(key_func=calculate_cache_key)
     def list(self, request, *args, **kwargs):
         """
         归档
@@ -75,6 +82,7 @@ class ArticleCommentViewSet(mixins.ListModelMixin,
     queryset = Article.objects.filter(is_del=False, status=1).order_by("-release_time")
     serializer_class = ArticleCommentViewSetListSerializer
 
+    @cache_response(key_func=calculate_cache_key)
     def list(self, request, *args, **kwargs):
         """
         获取文章评论-列表

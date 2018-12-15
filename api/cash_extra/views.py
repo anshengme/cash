@@ -9,10 +9,12 @@ from django.utils import timezone
 from rest_framework import viewsets, mixins, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework_extensions.cache.decorators import cache_response
 
 from cash import static
 from utils.error_code import HTTP_ERROR_CODE
 from utils.exceptions import BadRequest
+from utils.page_cache import calculate_cache_key
 from .models import Settings
 from .serializers import SettingsViewSetListSerializer, ImageViewSetCreateSerializer
 
@@ -24,6 +26,7 @@ class SettingsViewSet(mixins.ListModelMixin,
     queryset = Settings.objects.all()
     serializer_class = SettingsViewSetListSerializer
 
+    @cache_response(key_func=calculate_cache_key)
     def list(self, request, *args, **kwargs):
         """
         设置

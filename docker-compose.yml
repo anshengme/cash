@@ -1,12 +1,34 @@
 version: '3'
 
 services:
+  redis:
+    container_name: cash_redis
+    image: redis:latest
+
+  db:
+    container_name: cash_db
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: cash
+      MYSQL_DATABASE: cash
+      MYSQL_USER: cash
+      MYSQL_PASSWORD: cash
+
   api:
     image: python
     container_name: cash_api
-    command: bash -c "cd /src/ && pip install -r requirements.txt && python manage.py collectstatic --noinput && make migrate && make start"
+    command: bash -c "cd /src/ && pip install -i https://pypi.doubanio.com/simple/ -r requirements.txt && python manage.py collectstatic --noinput && make migrate && make start"
+    depends_on:
+      - db
+      - redis
     volumes:
       - ./api/:/src
+    environment:
+      DB_HOST: db
+      REDIS_HOST: redis
+    links:
+      - redis
+      - db
 
   lb:
     image: nginx

@@ -1,6 +1,15 @@
 import datetime
 import os
 
+# Application Configuration
+DB_HOST = os.environ.get('DB_HOST', 'localhost')  # 数据库IP地址
+DB_NAME = os.environ.get('DB_NAME', 'cash')  # 数据库名称
+DB_USER = os.environ.get('DB_USER', 'cash')  # 数据库用户
+DB_PASSWORD = os.environ.get('DB_PASSWORD', 'cash')  # 数据库密码
+DB_PORT = os.environ.get('DB_PORT', '3306')  # 数据库端口
+REDIS_HOST = os.environ.get('REDIS_HOST', 'redis')  # REDIS服务器IP
+REDIS_PORT = os.environ.get('REDIS_PORT', '6379')  # REDIS端口
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -69,30 +78,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'cash.wsgi.application'
 
-# Database
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 # Password validation
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
 # Internationalization
@@ -106,6 +98,18 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = False
+
+# Database
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': DB_HOST,
+        'PORT': DB_PORT,
+    }
+}
 
 # Static files (CSS, JavaScript, Images)
 
@@ -137,4 +141,16 @@ REST_FRAMEWORK = {
 JWT_AUTH = {
     'JWT_AUTH_HEADER_PREFIX': 'Token',
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7)
+}
+
+# Cache
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': '{redis_host}:{redis_port}'.format(redis_host=REDIS_HOST, redis_port=REDIS_PORT),
+    },
+}
+REST_FRAMEWORK_EXTENSIONS = {
+    'DEFAULT_CACHE_RESPONSE_TIMEOUT': 60 * 1,
+    'DEFAULT_CACHE_ERRORS': False,
 }

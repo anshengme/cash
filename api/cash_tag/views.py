@@ -1,13 +1,15 @@
-from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, mixins
 from rest_framework.response import Response
+from rest_framework_extensions.cache.mixins import CacheResponseMixin
+
 from .models import Tag
 from .serializers import TagViewSetListSerializer, TagViewSetRetrieveSerializer
 
 
 # Create your views here.
 
-class TagViewSet(mixins.ListModelMixin,
+class TagViewSet(CacheResponseMixin,
+                 mixins.ListModelMixin,
                  mixins.RetrieveModelMixin,
                  viewsets.GenericViewSet):
     """

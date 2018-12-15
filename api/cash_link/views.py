@@ -1,4 +1,5 @@
 from rest_framework import viewsets, mixins
+from rest_framework_extensions.cache.mixins import CacheResponseMixin
 
 from .models import Link
 from .serializers import LinkViewSetListSerializer
@@ -6,7 +7,8 @@ from .serializers import LinkViewSetListSerializer
 
 # Create your views here.
 
-class LinkViewSet(mixins.ListModelMixin,
+class LinkViewSet(CacheResponseMixin,
+                  mixins.ListModelMixin,
                   viewsets.GenericViewSet):
     """
     list:
