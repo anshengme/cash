@@ -30,8 +30,8 @@ export async function TopicArticles() {
   return request('/api/article/topic/');
 }
 
-export async function Articles() {
-  return request('/api/article/');
+export async function Articles(params) {
+  return request(`/api/article/?${stringify(params)}`);
 }
 
 export async function Archive() {

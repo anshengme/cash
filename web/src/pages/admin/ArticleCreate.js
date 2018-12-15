@@ -160,7 +160,7 @@ class ArticleCreate extends PureComponent {
                   <FormItem {...selectFormItemLayout} label="状态">
                     {getFieldDecorator('status', {
                       rules: [{ required: true, message: '请选择状态' }],
-                      initialValue: article ? article['status'] : 1,
+                      initialValue: article['status'] ? article['status'] : 1,
                     })(
                       <Select style={{ width: '100%' }}>
                         <Option value={1}>发布</Option>
@@ -173,7 +173,7 @@ class ArticleCreate extends PureComponent {
                   <FormItem {...selectFormItemLayout} label="类型">
                     {getFieldDecorator('type', {
                       rules: [{ required: true, message: '请选择类型' }],
-                      initialValue: article ? article['type'] : 1,
+                      initialValue: article['type'] ? article['type'] : 1,
                     })(
                       <Select style={{ width: '100%' }}>
                         <Option value={1}>文章</Option>

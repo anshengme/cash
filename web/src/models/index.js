@@ -21,8 +21,13 @@ export default {
         payload: { hotArticles },
       });
     },
-    * getArticles({}, { call, put }) {
-      const articles = yield call(Articles);
+    * getArticles({}, { call, put, select }) {
+      const { articles: { limit, total } } = yield select(state => state.index);
+      let payload = {};
+      if (limit && limit < total) {
+        payload = { limit: limit + 10 };
+      }
+      const articles = yield call(Articles, payload);
       yield put({
         type: 'setState',
         payload: { articles },

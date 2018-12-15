@@ -19,13 +19,16 @@ class ArticleViewSet(mixins.ListModelMixin,
     文章列表
     """
     lookup_field = 'url__iexact'
-    queryset = Article.objects.filter(is_del=False, status=1).order_by("-release_time")
     pagination_class = LimitPagePagination
 
     def get_serializer_class(self):
         if self.action == "list":
             return ArticleViewSetListSerializer
         return ArticleViewSetRetrieveSerializer
+
+    def get_queryset(self):
+        queryset = Article.objects.filter(is_del=False, status=1).order_by("-release_time")
+        return queryset.filter(type=1) if self.action == 'list' else queryset
 
 
 class HotArticleViewSet(mixins.ListModelMixin,
@@ -69,7 +72,7 @@ class ArchiveViewSet(mixins.ListModelMixin,
 
 class ArticleCommentViewSet(mixins.ListModelMixin,
                             viewsets.GenericViewSet):
-    queryset = Article.objects.filter(is_del=False, type=1, status=1).order_by("-release_time")
+    queryset = Article.objects.filter(is_del=False, status=1).order_by("-release_time")
     serializer_class = ArticleCommentViewSetListSerializer
 
     def list(self, request, *args, **kwargs):

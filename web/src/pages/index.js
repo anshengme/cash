@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'dva';
-import { Avatar, Col, Icon, Input, Row } from 'antd';
+import { Avatar, Col, Icon, Input, Row, Button } from 'antd';
 import Link from 'umi/link';
 import style from './index.less';
 import AvatarImg from '../assets/avatar.png';
@@ -43,11 +43,11 @@ class IndexPage extends Component {
                     <li key={article.url}>
                       <div>
                         <span>
-                          <Icon type="eye" theme="filled" style={{ marginRight: 8 }}/>查看（{article["view_count"]}）
+                          <Icon type="eye" theme="filled" style={{ marginRight: 8 }}/>查看（{article['view_count']}）
                         </span>
                         <span className={style.dot}/>
                         <span className={style.hotArticleListComment}>
-                          <Icon type="message" theme="filled" style={{ marginRight: 8 }}/>评论（{article["comment_count"]}）
+                          <Icon type="message" theme="filled" style={{ marginRight: 8 }}/>评论（{article['comment_count']}）
                         </span>
                       </div>
                       <span className={style[`label${index + 1}`]}>{index + 1}</span>
@@ -105,6 +105,12 @@ class IndexPage extends Component {
                   </Row>
                 </div>,
               )
+            }
+          </div>
+          <div className={style.Pagination}>
+            {
+              articles && articles['limit'] < articles['total'] ?
+                <Button onClick={this.handleMore} type="primary" block>加载更多</Button> : null
             }
           </div>
         </Col>
@@ -202,6 +208,12 @@ class IndexPage extends Component {
       </Row>
     );
   }
+
+  // 加载更多
+  handleMore = () => {
+    const { dispatch } = this.props;
+    dispatch({ type: 'index/getArticles' });
+  };
 }
 
 export default IndexPage;
