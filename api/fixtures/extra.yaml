@@ -9,12 +9,12 @@
   pk: 2
   fields:
     key: "keywords"
-    value: "关键字1,关键字2"
+    value: "安生,python"
     desc: "关键字"
 
 - model: blog_extra.settings
   pk: 3
   fields:
     key: "description"
-    value: "描述"
+    value: "安生博客"
     desc: "描述"

@@ -7,3 +7,4 @@
 - md5
 - marked
 - highlight.js
+- react-helmet

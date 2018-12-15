@@ -28,7 +28,8 @@ class SettingsViewSet(mixins.ListModelMixin,
         """
         设置
         """
-        return Response(self.get_serializer(self.get_queryset(), many=True).data)
+        queryset = self.get_serializer(self.get_queryset(), many=True).data
+        return Response({item["key"]: item["value"] for item in queryset})
 
 
 class ImageViewSet(mixins.CreateModelMixin,
@@ -65,7 +66,8 @@ class ImageViewSet(mixins.CreateModelMixin,
     @classmethod
     def _generate_img_info(cls, request):
         current_time = timezone.now()
-        img_dir = os.path.join(settings.BASE_DIR, settings.MEDIA_ROOT, '%s/%d/%d/%d/' % (static.IMAGE_UPLOAD_PATH, current_time.year, current_time.month, current_time.day))
+        img_dir = os.path.join(settings.BASE_DIR, settings.MEDIA_ROOT, '%s/%d/%d/%d/' % (
+            static.IMAGE_UPLOAD_PATH, current_time.year, current_time.month, current_time.day))
         if cls._img_type == 'file':
             img = request.FILES.get('img')
             img_name, img_type = cls._generate_img_name(img, img_dir)

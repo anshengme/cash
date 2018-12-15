@@ -7,6 +7,7 @@ import CreateForm from './components/CreateForm';
 import UpdateForm from './components/UpdateForm';
 import SearchForm from './components/SearchForm';
 import styles from '../global.less';
+import { Helmet } from 'react-helmet';
 
 
 @connect(({ adminLink, loading }) => ({
@@ -68,6 +69,9 @@ class LinkPage extends PureComponent {
 
     return (
       <div>
+        <Helmet>
+          <title>友情链接 - 管理后台</title>
+        </Helmet>
         <Card bordered={false}>
           <div className={styles.tableListForm}>
             <SearchForm/>

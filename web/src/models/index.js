@@ -1,4 +1,4 @@
-import { Links, Tags, HotArticles, TopicArticles, Articles } from '@/services/api';
+import { Links, Tags, HotArticles, TopicArticles, Articles, Settings } from '@/services/api';
 
 export default {
   namespace: 'index',
@@ -11,6 +11,7 @@ export default {
     },
     hotArticles: [],
     topicArticles: [],
+    settings: {},
   },
 
   effects: {
@@ -53,6 +54,13 @@ export default {
       yield put({
         type: 'setState',
         payload: { tags },
+      });
+    },
+    * getSettings({}, { call, put }) {
+      const settings = yield call(Settings);
+      yield put({
+        type: 'setState',
+        payload: { settings },
       });
     },
   },

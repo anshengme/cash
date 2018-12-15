@@ -6,6 +6,7 @@ import style from './index.less';
 import AvatarImg from '../assets/avatar.png';
 import { MediaPath } from '@/config';
 import { formatDate } from '@/utils/utils';
+import { Helmet } from 'react-helmet';
 
 const Search = Input.Search;
 
@@ -26,13 +27,19 @@ class IndexPage extends Component {
     dispatch({ type: 'index/getHotArticles' });
     dispatch({ type: 'index/getTopicArticles' });
     dispatch({ type: 'index/getArticles' });
+    dispatch({ type: 'index/getSettings' });
   }
 
   render() {
     const { userDetail } = this.props.user;
-    const { links, tags, hotArticles, topicArticles, articles } = this.props.index;
+    const { links, tags, hotArticles, topicArticles, articles, settings } = this.props.index;
     return (
       <Row gutter={8}>
+        <Helmet>
+          <title>{settings['title']}</title>
+          <meta name="keywords" content={settings['keywords']}/>
+          <meta name="description" content={settings['description']}/>
+        </Helmet>
         <Col span={17}>
           <div className={style.left}>
             <div className={style.hotArticleList}>

@@ -25,8 +25,6 @@ class ArticleViewSetListSerializer(serializers.Serializer):
 
     def get_tags(self, instance):
         """ 或者文章关联列表 """
-        instance.view_count += 1
-        instance.save()
         return instance.tags.values_list("name", flat=True)
 
 
@@ -37,6 +35,12 @@ class ArchiveViewSetListSerializer(TopicArticleViewSetListSerializer):
 class ArticleViewSetRetrieveSerializer(ArticleViewSetListSerializer):
     id = serializers.IntegerField()
     content = serializers.CharField()
+    keywords = serializers.CharField()
+
+    def to_representation(self, instance):
+        instance.view_count += 1
+        instance.save()
+        return super().to_representation(instance)
 
 
 class ArticleCommentViewSetListSerializer(serializers.Serializer):

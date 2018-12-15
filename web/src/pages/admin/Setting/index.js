@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Input, Button, Card } from 'antd';
 import { connect } from 'dva';
+import { Helmet } from 'react-helmet';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -38,6 +39,9 @@ class SettingPage extends Component {
     const { form: { getFieldDecorator } } = this.props;
     return (
       <Card bordered={false}>
+        <Helmet>
+          <title>站点设置 - 管理后台</title>
+        </Helmet>
         <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
           <FormItem label="标题" {...formItemLayout}>
             {getFieldDecorator('title', {

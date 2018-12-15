@@ -4,6 +4,7 @@ import { connect } from 'dva';
 import { Col, Row } from 'antd';
 import { formatDate } from '@/utils/utils';
 import styles from './Archive.less';
+import { Helmet } from 'react-helmet';
 
 @connect(({ archive }) => ({ archive }))
 class ArchivePage extends Component {
@@ -16,6 +17,9 @@ class ArchivePage extends Component {
     const { data } = this.props.archive;
     return (
       <Row gutter={8}>
+        <Helmet>
+          <title>归档 - ansheng’s blog!</title>
+        </Helmet>
         <Col span={17}>
           <div className={styles.wrapper}>
             {

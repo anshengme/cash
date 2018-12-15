@@ -1,6 +1,7 @@
 import React, { Fragment, PureComponent } from 'react';
 import { connect } from 'dva';
 import { Badge, Modal, Card, Form } from 'antd';
+import { Helmet } from 'react-helmet';
 import StandardTable from '@/components/StandardTable';
 import { formatDateTime } from '@/utils/utils';
 import SearchForm from './components/SearchForm';
@@ -47,6 +48,9 @@ class UserPage extends PureComponent {
 
     return (
       <div>
+        <Helmet>
+          <title>用户管理 - 管理后台</title>
+        </Helmet>
         <Card bordered={false}>
           <div className={styles.tableListForm}>
             <SearchForm/>

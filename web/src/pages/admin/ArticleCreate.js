@@ -7,6 +7,7 @@ import { connect } from 'dva';
 import styles from './style.less';
 import { uploadImage } from '@/services/api';
 import { MediaPath } from '@/config';
+import { Helmet } from 'react-helmet';
 
 
 marked.setOptions({
@@ -73,6 +74,9 @@ class ArticleCreate extends PureComponent {
 
     return (
       <Card className={styles.card} bordered={false}>
+        <Helmet>
+          <title>创建文章 - 管理后台</title>
+        </Helmet>
         <Tabs tabBarExtraContent={
           <div>
             <Button

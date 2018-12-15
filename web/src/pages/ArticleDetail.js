@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Button, Col, Comment, Divider, Form, Icon, Input, List, Row, Modal } from 'antd';
 import { connect } from 'dva';
+import { Helmet } from 'react-helmet';
 import styles from './ArticleDetail.less';
 import indexStyles from './index.less';
 import Link from 'umi/link';
@@ -92,6 +93,11 @@ class ArticleDetailPage extends Component {
     const content = article['content'] ? marked(article['content']) : '';
     return (
       <Row gutter={8}>
+        <Helmet>
+          <title>{article['title']}</title>
+          <meta name="keywords" content={article['keywords']}/>
+          <meta name="description" content={article['description']}/>
+        </Helmet>
         <Col span={17}>
           <div className={styles.detail}>
             <h1 className={styles.title}>{article['title']}</h1>

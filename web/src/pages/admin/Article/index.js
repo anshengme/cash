@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Card, Form, Tag } from 'antd';
 import { connect } from 'dva';
+import { Helmet } from 'react-helmet';
 import StandardTable from '@/components/StandardTable';
 import { formatDateTime } from '@/utils/utils';
 import router from 'umi/router';
@@ -60,6 +61,9 @@ class ArticlePage extends Component {
     const { adminArticle: { data }, loading } = this.props;
     return (
       <div>
+        <Helmet>
+          <title>文章列表 - 管理后台</title>
+        </Helmet>
         <Card bordered={false}>
           <div className={styles.tableListForm}>
             <SearchForm/>
