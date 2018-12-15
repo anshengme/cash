@@ -1,7 +1,7 @@
 from django.db import models
 
-from blog import static
-from blog_tag.models import Tag
+from cash import static
+from cash_tag.models import Tag
 from utils.models import BaseModel
 
 

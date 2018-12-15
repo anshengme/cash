@@ -28,13 +28,13 @@ THIRD_PARTY_APPS = (
 )
 
 LOCAL_APPS = (
-    'blog_account',
-    'blog_admin',
-    'blog_article',
-    'blog_link',
-    'blog_comment',
-    'blog_tag',
-    'blog_extra'
+    'cash_account',
+    'cash_admin',
+    'cash_article',
+    'cash_link',
+    'cash_comment',
+    'cash_tag',
+    'cash_extra'
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'blog.urls'
+ROOT_URLCONF = 'cash.urls'
 
 TEMPLATES = [
     {
@@ -67,7 +67,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'blog.wsgi.application'
+WSGI_APPLICATION = 'cash.wsgi.application'
 
 # Database
 
@@ -116,7 +116,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Set user model
-AUTH_USER_MODEL = 'blog_account.Account'
+AUTH_USER_MODEL = 'cash_account.Account'
 
 # Test fixtures configurations
 FIXTURE_DIRS = (

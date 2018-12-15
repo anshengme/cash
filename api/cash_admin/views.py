@@ -3,11 +3,11 @@ from rest_framework import status
 from rest_framework import viewsets, mixins
 from rest_framework.response import Response
 
-from blog_account.models import Account
-from blog_article.models import Article
-from blog_extra.models import Settings
-from blog_link.models import Link
-from blog_tag.models import Tag
+from cash_account.models import Account
+from cash_article.models import Article
+from cash_extra.models import Settings
+from cash_link.models import Link
+from cash_tag.models import Tag
 from utils import backends
 from utils.pagination import LimitPagePagination
 from .permissions import IsSuperuserPermission

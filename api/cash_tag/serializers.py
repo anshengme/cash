@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from blog_article.serializers import ArticleViewSetListSerializer
+from cash_article.serializers import ArticleViewSetListSerializer
 
 
 class TagViewSetListSerializer(serializers.Serializer):

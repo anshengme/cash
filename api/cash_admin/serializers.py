@@ -1,10 +1,10 @@
 from django.utils import timezone
 from rest_framework import serializers
 
-from blog_account.models import Account
-from blog_article.models import Article
-from blog_link.models import Link
-from blog_tag.models import Tag
+from cash_account.models import Account
+from cash_article.models import Article
+from cash_link.models import Link
+from cash_tag.models import Tag
 
 
 class LinkViewSetListSerializer(serializers.ModelSerializer):

@@ -10,7 +10,7 @@ from rest_framework import viewsets, mixins, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from blog import static
+from cash import static
 from utils.error_code import HTTP_ERROR_CODE
 from utils.exceptions import BadRequest
 from .models import Settings

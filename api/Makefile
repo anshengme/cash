@@ -1,4 +1,4 @@
-APP_LIST=blog_account blog_article blog_link blog_admin blog_comment blog_tag blog_extra
+APP_LIST=cash_account cash_article cash_link cash_admin cash_comment cash_tag cash_extra
 
 .PHONY: all clean migrate start reload load
 

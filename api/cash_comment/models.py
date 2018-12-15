@@ -1,8 +1,8 @@
 from django.db import models
 
 from utils.models import BaseModel
-from blog_article.models import Article
-from blog_account.models import Account
+from cash_article.models import Article
+from cash_account.models import Account
 
 
 # Create your models here.

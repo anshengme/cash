@@ -2,7 +2,7 @@ from rest_framework import viewsets, mixins, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from blog_article.serializers import ArticleCommentViewSetListSerializer
+from cash_article.serializers import ArticleCommentViewSetListSerializer
 from utils.common import get_comments
 from .models import Comment
 from .serializers import CommentViewSetCreateSerializer
