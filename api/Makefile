@@ -32,3 +32,6 @@ reload:
 load:
 	python3 manage.py loaddata fixtures/*.yaml
 
+
+server:
+	gunicorn -c cash/gunicorn.conf.py cash.wsgi
