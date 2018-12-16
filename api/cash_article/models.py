@@ -9,7 +9,7 @@ from utils.models import BaseModel
 
 class Article(BaseModel):
     """ 文章 """
-    title = models.CharField(max_length=32, unique=True, help_text='文章标题')
+    title = models.CharField(max_length=64, unique=True, help_text='文章标题')
     url = models.CharField(max_length=255, unique=True, help_text='链接')
     description = models.TextField(null=True, blank=True, help_text='摘要')
     keywords = models.TextField(help_text='关键字')
