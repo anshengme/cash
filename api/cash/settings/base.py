@@ -7,7 +7,7 @@ DB_NAME = os.environ.get('DB_NAME', 'cash')  # 数据库名称
 DB_USER = os.environ.get('DB_USER', 'cash')  # 数据库用户
 DB_PASSWORD = os.environ.get('DB_PASSWORD', 'cash')  # 数据库密码
 DB_PORT = os.environ.get('DB_PORT', '3306')  # 数据库端口
-REDIS_HOST = os.environ.get('REDIS_HOST', 'redis')  # REDIS服务器IP
+REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')  # REDIS服务器IP
 REDIS_PORT = os.environ.get('REDIS_PORT', '6379')  # REDIS端口
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
