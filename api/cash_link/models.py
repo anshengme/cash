@@ -8,7 +8,7 @@ from utils.models import BaseModel
 class Link(BaseModel):
     """ 友情链接 """
     name = models.CharField(max_length=32, help_text="名称")
-    url = models.CharField(max_length=32, help_text="URL地址")
+    url = models.CharField(max_length=64, help_text="URL地址")
 
     class Meta:
         db_table = "link"
