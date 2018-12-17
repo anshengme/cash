@@ -17,7 +17,7 @@ services:
   api:
     image: python
     container_name: cash_api
-    command: bash -c "cd /src/ && pip install -i https://pypi.doubanio.com/simple/ -r requirements.txt && python manage.py collectstatic --noinput && make migrate && make start"
+    command: bash -c "cd /src/ && pip install -i https://pypi.doubanio.com/simple/ -r requirements.txt && python manage.py collectstatic --noinput && make migrate && make server"
     depends_on:
       - db
       - redis

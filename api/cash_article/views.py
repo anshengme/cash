@@ -31,8 +31,8 @@ class ArticleViewSet(CacheResponseMixin,
         return ArticleViewSetRetrieveSerializer
 
     def get_queryset(self):
-        queryset = Article.objects.filter(is_del=False, status=1).order_by("-release_time")
-        return queryset.filter(type=1) if self.action == 'list' else queryset
+        queryset = Article.objects.filter(is_del=False).order_by("-release_time")
+        return queryset.filter(type=1, status=1) if self.action == 'list' else queryset
 
 
 class HotArticleViewSet(CacheResponseMixin,
