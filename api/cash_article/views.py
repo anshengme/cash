@@ -14,8 +14,7 @@ from .serializers import HotArticleViewSetListSerializer, TopicArticleViewSetLis
 
 # Create your views here.
 
-class ArticleViewSet(CacheResponseMixin,
-                     mixins.ListModelMixin,
+class ArticleViewSet(mixins.ListModelMixin,
                      mixins.RetrieveModelMixin,
                      viewsets.GenericViewSet):
     """
