@@ -9,6 +9,7 @@ import { formatDate, formatDateTime } from '@/utils/utils';
 import marked from 'marked';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark.css';
+import markdownStyle from '@/utils/markdown.less';
 
 const { TextArea } = Input;
 marked.setOptions({
@@ -125,7 +126,7 @@ class ArticleDetailPage extends Component {
               }
             </div>
             <Divider/>
-            <div dangerouslySetInnerHTML={{ __html: content }}>
+            <div className={markdownStyle.articleContent} dangerouslySetInnerHTML={{ __html: content }}>
             </div>
           </div>
 
