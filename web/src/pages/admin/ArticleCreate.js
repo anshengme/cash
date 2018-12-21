@@ -7,7 +7,6 @@ import { connect } from 'dva';
 import styles from './style.less';
 import { uploadImage } from '@/services/api';
 import { MediaPath } from '@/config';
-import markdownStyle from '@/utils/markdown.less';
 import { Helmet } from 'react-helmet';
 
 
@@ -208,7 +207,7 @@ class ArticleCreate extends PureComponent {
 
           </TabPane>
           <TabPane tab="文章阅览" key="3">
-            <div className={markdownStyle.articleContent} dangerouslySetInnerHTML={{ __html: output }}/>
+            <article class="markdown-body" dangerouslySetInnerHTML={{ __html: output }}/>
           </TabPane>
         </Tabs>
 
