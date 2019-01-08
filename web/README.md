@@ -8,3 +8,4 @@
 - marked
 - highlight.js
 - react-helmet
+- github-markdown-css
