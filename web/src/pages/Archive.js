@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Link from 'umi/link';
 import { connect } from 'dva';
 import { Col, Row } from 'antd';
-import { formatDate } from '@/utils/utils';
 import styles from './Archive.less';
 import { Helmet } from 'react-helmet';
 
@@ -30,7 +29,7 @@ class ArchivePage extends Component {
                     {
                       data[key].map((article, index) =>
                         <li key={index}>
-                          <span>{formatDate(article['release_time'])}</span>
+                          <span>{article['release_time']}</span>
                           <Link to={`/article/${article.url}/`}>{article.title}</Link>
                         </li>,
                       )

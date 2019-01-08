@@ -3,7 +3,6 @@ import { Card, Form, Tag } from 'antd';
 import { connect } from 'dva';
 import { Helmet } from 'react-helmet';
 import StandardTable from '@/components/StandardTable';
-import { formatDateTime } from '@/utils/utils';
 import router from 'umi/router';
 
 import styles from '../global.less';
@@ -18,8 +17,8 @@ class ArticlePage extends Component {
   columns = [
     { title: 'ID', dataIndex: 'id' },
     { title: '标题', dataIndex: 'title' },
-    { title: '创建时间', dataIndex: 'ct', render: formatDateTime },
-    { title: '发布时间', dataIndex: 'release_time', render: formatDateTime },
+    { title: '创建时间', dataIndex: 'ct' },
+    { title: '发布时间', dataIndex: 'release_time' },
     {
       title: '类型', dataIndex: 'type',
       render: text => (

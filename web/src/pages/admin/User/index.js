@@ -3,7 +3,6 @@ import { connect } from 'dva';
 import { Badge, Modal, Card, Form } from 'antd';
 import { Helmet } from 'react-helmet';
 import StandardTable from '@/components/StandardTable';
-import { formatDateTime } from '@/utils/utils';
 import SearchForm from './components/SearchForm';
 import styles from '../global.less';
 
@@ -19,8 +18,8 @@ class UserPage extends PureComponent {
     { title: 'ID', dataIndex: 'id' },
     { title: '邮箱', dataIndex: 'email' },
     { title: '昵称', dataIndex: 'nick_name' },
-    { title: '上次登录时间', dataIndex: 'last_login', render: formatDateTime },
-    { title: '加入时间', dataIndex: 'date_joined', render: formatDateTime },
+    { title: '上次登录时间', dataIndex: 'last_login' },
+    { title: '加入时间', dataIndex: 'date_joined' },
     {
       title: '是否激活', dataIndex: 'is_active',
       render: text => (

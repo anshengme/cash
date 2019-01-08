@@ -2,7 +2,6 @@ import React, { Fragment, PureComponent } from 'react';
 import { connect } from 'dva';
 import { Badge, Button, Card, Form } from 'antd';
 import StandardTable from '@/components/StandardTable';
-import { formatDateTime } from '@/utils/utils';
 import CreateForm from './components/CreateForm';
 import UpdateForm from './components/UpdateForm';
 import SearchForm from './components/SearchForm';
@@ -27,8 +26,8 @@ class LinkPage extends PureComponent {
     { title: 'ID', dataIndex: 'id' },
     { title: '名称', dataIndex: 'name' },
     { title: '网址', dataIndex: 'url' },
-    { title: '创建时间', dataIndex: 'ct', render: formatDateTime },
-    { title: '更新时间', dataIndex: 'ut', render: formatDateTime },
+    { title: '创建时间', dataIndex: 'ct' },
+    { title: '更新时间', dataIndex: 'ut' },
     {
       title: '状态', dataIndex: 'is_del',
       render: text => (

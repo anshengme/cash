@@ -5,12 +5,15 @@ from cash_account.models import Account
 from cash_article.models import Article
 from cash_link.models import Link
 from cash_tag.models import Tag
+from cash import static
 
 
 class LinkViewSetListSerializer(serializers.ModelSerializer):
     """
     友情链接-列表
     """
+    ct = serializers.DateTimeField(format=static.DATETIME_FORMAT)
+    ut = serializers.DateTimeField(format=static.DATETIME_FORMAT)
 
     class Meta:
         model = Link
@@ -55,6 +58,8 @@ class TagViewSetListSerializer(TagViewSetCreateSerializer):
     """
     标签-列表
     """
+    ct = serializers.DateTimeField(format=static.DATETIME_FORMAT)
+    ut = serializers.DateTimeField(format=static.DATETIME_FORMAT)
     article_count = serializers.IntegerField()
 
 
@@ -76,6 +81,8 @@ class AccountViewSetListSerializer(serializers.ModelSerializer):
     """
     用户-列表
     """
+    date_joined = serializers.DateTimeField(format=static.DATETIME_FORMAT)
+    last_login = serializers.DateTimeField(format=static.DATETIME_FORMAT)
 
     class Meta:
         model = Account
@@ -103,8 +110,8 @@ class ArticleViewSetListSerializer(serializers.Serializer):
     status = serializers.IntegerField()
     type = serializers.IntegerField()
     view_count = serializers.IntegerField()
-    release_time = serializers.DateTimeField()
-    ct = serializers.DateTimeField()
+    release_time = serializers.DateTimeField(format=static.DATETIME_FORMAT)
+    ct = serializers.DateTimeField(format=static.DATETIME_FORMAT)
 
 
 class ArticleViewSetCreateSerializer(serializers.ModelSerializer):

@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'dva';
-import { Col, Icon, Row, Card, Alert } from 'antd';
+import { Alert, Col, Icon, Row } from 'antd';
 import Link from 'umi/link';
 import style from './index.less';
-import { formatDate } from '@/utils/utils';
 
 
 const IconText = ({ type, text, theme }) => (
@@ -55,7 +54,7 @@ class tagDetailPage extends Component {
                           {article.description}
                         </div>
                         <div className={style.articleFooter}>
-                          <span>{formatDate(article['release_time'])}</span>
+                          <span>{article['release_time']}</span>
                           <span className={style.dot}/>
                           <IconText type="eye" theme="filled" text={article['view_count']}/>
                           <span className={style.dot}/>

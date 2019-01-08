@@ -5,7 +5,6 @@ import Link from 'umi/link';
 import style from './index.less';
 import AvatarImg from '../assets/avatar.png';
 import { MediaPath } from '@/config';
-import { formatDate } from '@/utils/utils';
 import { Helmet } from 'react-helmet';
 
 const Search = Input.Search;
@@ -85,7 +84,7 @@ class IndexPage extends Component {
                           {article.description}
                         </div>
                         <div className={style.articleFooter}>
-                          <span>{formatDate(article['release_time'])}</span>
+                          <span>{article['release_time']}</span>
                           <span className={style.dot}/>
                           <IconText type="eye" theme="filled" text={article['view_count']}/>
                           <span className={style.dot}/>

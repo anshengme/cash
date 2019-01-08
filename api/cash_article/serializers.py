@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from utils.serializers import AccountInfoSerializers
+from cash import static
 
 
 class TopicArticleViewSetListSerializer(serializers.Serializer):
@@ -20,7 +21,7 @@ class ArticleViewSetListSerializer(serializers.Serializer):
     img = serializers.CharField()
     view_count = serializers.IntegerField()
     comment_count = serializers.IntegerField()
-    release_time = serializers.DateTimeField()
+    release_time = serializers.DateTimeField(format=static.DATE_FORMAT)
     tags = serializers.SerializerMethodField()
 
     def get_tags(self, instance):
@@ -29,7 +30,7 @@ class ArticleViewSetListSerializer(serializers.Serializer):
 
 
 class ArchiveViewSetListSerializer(TopicArticleViewSetListSerializer):
-    release_time = serializers.DateTimeField()
+    release_time = serializers.DateTimeField(format=static.DATE_FORMAT)
 
 
 class ArticleViewSetRetrieveSerializer(ArticleViewSetListSerializer):
@@ -46,7 +47,7 @@ class ArticleViewSetRetrieveSerializer(ArticleViewSetListSerializer):
 class ArticleCommentViewSetListSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     account = AccountInfoSerializers()
-    ct = serializers.DateTimeField()
+    ct = serializers.DateTimeField(format=static.DATETIME_FORMAT)
     content = serializers.CharField()
     reply_id = serializers.SerializerMethodField()
     children = serializers.ListField(default=[])

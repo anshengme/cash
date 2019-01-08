@@ -5,7 +5,6 @@ import { Helmet } from 'react-helmet';
 import styles from './ArticleDetail.less';
 import indexStyles from './index.less';
 import Link from 'umi/link';
-import { formatDate, formatDateTime } from '@/utils/utils';
 import marked from 'marked';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark.css';
@@ -28,7 +27,7 @@ const CommentItem = ({ comment, handleReplyComment }) => {
     author={comment['account']['nick_name']}
     avatar={`/media/${comment['account']['avatar']}`}
     content={comment['content']}
-    datetime={formatDateTime(comment['ct'])}
+    datetime={comment['ct']}
   >
     {
       comment['children'] && comment['children'].length > 0 ?
@@ -102,7 +101,7 @@ class ArticleDetailPage extends Component {
           <div className={styles.detail}>
             <h1 className={styles.title}>{article['title']}</h1>
             <div className={styles.articleFooter}>
-              <span>{formatDate(article['release_time'])}</span>
+              <span>{article['release_time']}</span>
               <span className={indexStyles.dot}/>
               <IconText type="eye" theme="filled" text={article['view_count']}/>
               <span className={indexStyles.dot}/>
