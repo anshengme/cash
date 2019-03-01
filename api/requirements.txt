@@ -1,4 +1,4 @@
-Django==2.1.5
+Django==2.1.7
 djangorestframework==3.9.1
 pyyaml==3.13
 djangorestframework-jwt==1.11.0
