@@ -7,8 +7,6 @@ DB_NAME = os.environ.get('DB_NAME', 'cash')  # 数据库名称
 DB_USER = os.environ.get('DB_USER', 'cash')  # 数据库用户
 DB_PASSWORD = os.environ.get('DB_PASSWORD', 'cash')  # 数据库密码
 DB_PORT = os.environ.get('DB_PORT', '3306')  # 数据库端口
-REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')  # REDIS服务器IP
-REDIS_PORT = os.environ.get('REDIS_PORT', '6379')  # REDIS端口
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -152,10 +150,10 @@ JWT_AUTH = {
 # Cache
 CACHES = {
     'default': {
-        'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': '{redis_host}:{redis_port}'.format(redis_host=REDIS_HOST, redis_port=REDIS_PORT),
-    },
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
 }
+
 REST_FRAMEWORK_EXTENSIONS = {
     'DEFAULT_CACHE_RESPONSE_TIMEOUT': 60 * 1,
     'DEFAULT_CACHE_ERRORS': False,
