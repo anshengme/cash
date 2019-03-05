@@ -1,6 +1,5 @@
 from django.contrib.syndication.views import Feed
-from django.utils.feedgenerator import Atom1Feed
-from django.utils.feedgenerator import Rss201rev2Feed
+from django.utils.feedgenerator import Atom1Feed, Rss201rev2Feed
 
 from cash_article.models import Article
 
