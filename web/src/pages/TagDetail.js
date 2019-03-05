@@ -42,7 +42,7 @@ class tagDetailPage extends Component {
                       (article.img === null) || !article.img ? <Fragment/> :
                         <Col span={6}>
                           <img className={style.articleImg}
-                               src={`/media/${article.img}`} alt=""/>
+                               src={`${article.img}`} alt=""/>
                         </Col>
                     }
                     <Col span={article.img ? 18 : 24}>

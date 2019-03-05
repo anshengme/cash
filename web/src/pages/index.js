@@ -1,13 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'dva';
-import { Avatar, Col, Icon, Input, Row, Button } from 'antd';
+import { Avatar, Col, Icon, Row, Button } from 'antd';
 import Link from 'umi/link';
 import style from './index.less';
 import AvatarImg from '../assets/avatar.png';
 import { MediaPath } from '@/config';
 import { Helmet } from 'react-helmet';
 
-const Search = Input.Search;
 
 const IconText = ({ type, text, theme }) => (
   <span>
@@ -149,14 +148,6 @@ class IndexPage extends Component {
                     </Fragment>
                 }
               </p>
-            </div>
-
-            <div className={style.meSearch}>
-              <Search
-                placeholder="搜索"
-                onSearch={value => console.log(value)}
-                enterButton
-              />
             </div>
 
             <div>
