@@ -1,0 +1,36 @@
+- model: cash_extra.config
+  pk: 1
+  fields:
+    ct: "2019-01-01 00:00:00"
+    ut: "2019-01-01 00:00:00"
+    key: "title"
+    value: "安生博客"
+    desc: "标题"
+
+- model: cash_extra.config
+  pk: 2
+  fields:
+    ct: "2019-01-01 00:00:00"
+    ut: "2019-01-01 00:00:00"
+    key: "sub_title"
+    value: "大好时光"
+    desc: "子标题"
+
+- model: cash_extra.config
+  pk: 3
+  fields:
+    ct: "2019-01-01 00:00:00"
+    ut: "2019-01-01 00:00:00"
+    key: "keywords"
+    value: "安生,python"
+    desc: "关键字"
+
+- model: cash_extra.config
+  pk: 4
+  fields:
+    ct: "2019-01-01 00:00:00"
+    ut: "2019-01-01 00:00:00"
+    key: "description"
+    value: "安生博客"
+    desc: "描述"
+

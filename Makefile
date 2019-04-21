@@ -1,9 +1,25 @@
+APP_LIST=cash_account cash_article cash_link cash_tag cash_extra
+
+
+clean:
+	rm -rf */migrations
+
+
+migrate:
+	python3 manage.py makemigrations $(APP_LIST)
+	python3 manage.py migrate
+
+
 start:
-	docker-compose start
+	python3 manage.py runserver 0:9006
 
 
-stop:
-	docker-compose stop
+load:
+	python3 manage.py loaddata fixtures/*.yaml
+
+
+server:
+	gunicorn -c cash/gunicorn.conf.py cash.wsgi
 
 
 up:
@@ -16,11 +32,3 @@ down:
 
 logs:
 	docker-compose logs -f
-
-
-migrate:
-	docker-compose exec api sh -c "cd /src && make migrate"
-
-
-load:
-	docker-compose exec api sh -c "cd /src && make load"

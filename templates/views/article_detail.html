@@ -1,0 +1,113 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block title %}{{ object.title }}{% endblock %}
+{% block keywords %}{{ object.keywords }}{% endblock %}
+{% block description %}{{ object.description }}{% endblock %}
+
+{% block content %}
+
+<main class="py-4 py-lg-5">
+    <div class="container">
+        <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+
+                <!-- 标题区 -->
+                <section class="post-header py-4 ">
+                    <h1 class="title h3 font-weight-bold font-theme">{{ object.title }}</h1>
+                    <div class="meta text-sm text-muted mt-4">
+                        <i class="text-primary px-2">&bull;</i>
+                        {% for tag in object.tags %}
+                        <span class="d-inline-block">
+                            <a class="text-muted" href="{% url 'tag-detail' tag %}" target="_blank">#{{ tag|upper }}</a>
+                        </span>
+                        {% endfor %}
+
+                        <i class="text-primary px-2">&bull;</i>
+                        <span class="d-inline-block pr-3">{{ object.release_time }}</span>
+                    </div>
+                </section>
+
+                <!-- 文章详情 -->
+                <section class="position-relative">
+
+                    <!-- 文章正文 -->
+                    <div id="post-4148" class="post item item-regular post-4148 type-post status-publish format-standard has-post-thumbnail hentry category-trip tag-1009 special-rzcs">
+                        <div class="markdown-body content">
+                            {{ object.content|safe }}
+                        </div>
+
+                        <!-- 点赞 -->
+                        <div class="post-action text-center mt-4 mt-lg-5">
+                            <a href="javascript:" data-action="like" class="post-like btn btn-primary text-sm">
+                                <i class="text-lg iconfont icon-ziyuanjk"></i>
+                                赞
+                                <small class="like-count">(80)</small>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 文章推荐 -->
+                <div class="related-list">
+                    <div class="h5 mb-4"><i class="text-xl text-primary iconfont icon-pricetags-outline pr-2"></i>您可能感兴趣的</div>
+                    <div class="post-list list-grid list-bordered my-n4">
+                        {% for object in recommend_article_list %}
+                        <div class="list-item block item-regular post type-post status-publish format-standard has-post-thumbnail sticky hentry category-trip special-rzcs">
+                            <div class="list-content py-lg-3">
+                                <div class="list-body ">
+                                    <!-- 标题 -->
+                                    <div class="h5 h-2x">
+                                        <a href="{% url 'article-detail' object.url %}" class="list-title">
+                                            {{ object.title }}
+                                        </a>
+                                    </div>
+
+                                    <!-- 描述信息 -->
+                                    <div class="d-none d-md-block text-md text-muted mt-3">
+                                        <div class="h-2x">
+                                            {{ object.description }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="list-footer d-flex">
+                                    <!-- 标签 -->
+                                    <div class="text-xs text-muted">
+                                        {% for tag in object.tags %}
+                                        <span class="d-inline-block">
+                                        <a class="text-muted" href="{% url 'tag-detail' tag %}" target="_blank">#{{ tag|upper }}</a>
+                                    </span>
+                                        {% endfor %}
+                                        <i class="text-primary px-2">&bull;</i>
+                                        <span class="d-inline-block"> {{ object.release_time }}</span>
+                                    </div>
+
+                                    <!-- 顶置图标 -->
+                                    {% if None %}
+                                    <div class="ml-auto text-xs text-muted ">
+                                    <span class="d-inline-block text-primary px-2" data-toggle="tooltip" data-placement="top" title="置顶">
+                                        <i class="text-lg iconfont icon-arrowhead-up-outline"></i>
+                                    </span>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- 右侧图片 -->
+                            {% if object.img %}
+                            <div class="list-image col-3">
+                                <div class="media shadow">
+                                    <a href="{% url 'article-detail' object.url %}" class="media-content" style="background-image:url({{ object.img }})"></a>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

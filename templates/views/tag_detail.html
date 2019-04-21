@@ -1,0 +1,75 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block title %}{{ object.name }} | {{ config.sub_title }}{% endblock %}
+
+{% block content %}
+
+<section class="page-header bg-light py-4 py-lg-5">
+    <div class="container">
+        <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+                <h1 class="h3"><span class="nice-m-line">{{ object.name|upper }}</span></h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main class="py-4 py-lg-5">
+    <div class="container">
+        <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-10 px-lg-5">
+
+                <!-- 文章列表 -->
+                <section class="post-list list-grid list-bordered my-n4">
+
+                    {% for object in object.article_list %}
+                    <div class="list-item block item-regular post type-post status-publish format-standard has-post-thumbnail sticky hentry category-trip special-rzcs">
+                        <div class="list-content py-lg-3">
+                            <div class="list-body ">
+                                <!-- 标题 -->
+                                <div class="h5 h-2x">
+                                    <a href="{% url 'article-detail' object.url %}" class="list-title">
+                                        {{ object.title }}
+                                    </a>
+                                </div>
+
+                                <!-- 描述信息 -->
+                                <div class="d-none d-md-block text-md text-muted mt-3">
+                                    <div class="h-2x">
+                                        {{ object.description }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="list-footer d-flex">
+                                <!-- 标签 -->
+                                <div class="text-xs text-muted">
+                                    {% for tag in object.tags %}
+                                    <span class="d-inline-block">
+                                        <a class="text-muted" href="{% url 'tag-detail' tag %}" target="_blank">#{{ tag|upper }}</a>
+                                    </span>
+                                    {% endfor %}
+                                    <i class="text-primary px-2">&bull;</i>
+                                    <span class="d-inline-block"> {{ object.release_time }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 右侧图片 -->
+                        {% if object.img %}
+                        <div class="list-image col-3">
+                            <div class="media shadow">
+                                <a href="{% url 'article-detail' object.url %}" class="media-content" style="background-image:url({{ object.img }})"></a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </section>
+
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
