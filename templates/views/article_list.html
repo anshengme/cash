@@ -1,0 +1,173 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- 文章列表 -->
+
+<main class="py-4 py-lg-5">
+    <div class="container">
+        <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-10 px-lg-5">
+
+                <!-- Banner -->
+                <div class="pushes-list row row-sm mb-5">
+
+                    <!-- 左侧 -->
+                    {% if banner_list.0 %}
+                    <div class="item col-12 col-sm-6 mb-2 mb-sm-0">
+                        <div class="media shadow-2x">
+                            <a class="media-content" href="{% url 'article-detail' banner_list.0.url %}" target="_blank" title="{{ banner_list.0.title }}" style="background-image:url({{banner_list.0.img}})">
+                                <div class="media-hover"></div>
+                                <div class="title h5 text-center px-3">
+                                    <span class=" h-2x">{{ banner_list.0.title }}</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- 右侧 -->
+                    <div class="col-12 col-sm-6">
+                        <div class="row row-sm mb-2 mb-md-3">
+                            {% if banner_list.1 %}
+                            <div class="item col-6">
+                                <div class="media shadow-2x">
+                                    <a class="media-content" href="{% url 'article-detail' banner_list.1.url %}" target="_blank" title="{{ banner_list.1.title }}" style="background-image:url({{ banner_list.1.img }})">
+                                        <div class="media-hover"></div>
+                                        <div class="title h6 text-center px-3">
+                                            <span class=" h-2x">{{ banner_list.1.title }}</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if banner_list.2 %}
+                            <div class="item col-6">
+                                <div class="media shadow-2x">
+                                    <a class="media-content" href="{% url 'article-detail' banner_list.2.url %}" target="_blank" title="{{ banner_list.2.title }}" style="background-image:url({{ banner_list.2.img }})">
+                                        <div class="media-hover"></div>
+                                        <div class="title h6 text-center px-3"><span class=" h-2x">{{ banner_list.2.title }}</span></div>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+
+
+                        <div class="row row-sm">
+                            {% if banner_list.3 %}
+                            <div class="item col-6">
+                                <div class="media shadow-2x">
+                                    <a class="media-content" href="{% url 'article-detail' banner_list.3.url %}" target="_blank" title="{{ banner_list.3.title }}" style="background-image:url({{ banner_list.3.img }})">
+                                        <div class="media-hover"></div>
+                                        <div class="title h6 text-center px-3">
+                                            <span class=" h-2x">{{ banner_list.3.title }}</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            {% if banner_list.4 %}
+                            <div class="item col-6">
+                                <div class="media shadow-2x">
+                                    <a class="media-content" href="{% url 'article-detail' banner_list.4.url %}" target="_blank" title="{{ banner_list.4.title }}" style="background-image:url({{ banner_list.4.img }})">
+                                        <div class="media-hover"></div>
+                                        <div class="title h6 text-center px-3">
+                                            <span class=" h-2x">{{ banner_list.4.title }}</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- 文章列表 -->
+                <section class="post-list list-grid list-bordered my-n4">
+
+                    {% if object_list %}
+                    {% for object in object_list %}
+                    <!-- item -->
+                    <div class="list-item block item-regular post type-post status-publish format-standard has-post-thumbnail sticky hentry category-trip special-rzcs">
+                        <div class="list-content py-lg-3">
+                            <div class="list-body ">
+                                <!-- 标题 -->
+                                <div class="h5 h-2x">
+                                    <a href="{% url 'article-detail' object.url %}" class="list-title">
+                                        {{ object.title }}
+                                    </a>
+                                </div>
+
+                                <!-- 描述信息 -->
+                                <div class="d-none d-md-block text-md text-muted mt-3">
+                                    <div class="h-2x">
+                                        {{ object.description }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="list-footer d-flex">
+                                <!-- 标签 -->
+                                <div class="text-xs text-muted">
+                                    {% for tag in object.tags %}
+                                    <span class="d-inline-block">
+                                        <a class="text-muted" href="{% url 'tag-detail' tag %}" target="_blank">#{{ tag|upper }}</a>
+                                    </span>
+                                    {% endfor %}
+                                    <i class="text-primary px-2">&bull;</i>
+                                    <span class="d-inline-block"> {{ object.release_time }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 右侧图片 -->
+                        {% if object.img %}
+                        <div class="list-image col-3">
+                            <div class="media shadow">
+                                <a href="{% url 'article-detail' object.url %}" class="media-content" style="background-image:url({{ object.img }})"></a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+
+                </section>
+
+                <!-- 分页 -->
+                <nav class="navigation pagination" role="navigation">
+                    <div class="nav-links">
+                        {% if is_paginated %}
+                        {% for i in i|rjust:page_obj.paginator.num_pages %}
+                        {% if forloop.counter == page_obj.number %}
+                        <span aria-current='page' class='page-numbers current'>{{ forloop.counter }}</span>
+                        {% else %}
+                        <a class='page-numbers' href='{{ request.path }}?page={{ forloop.counter }}'>{{ forloop.counter }}</a>
+                        {% endif %}
+                        {% endfor %}
+
+                        <!-- 上一页 -->
+                        {% if page_obj.has_previous %}
+                        <a class="prev page-numbers" href="{{ request.path }}?page={{ page_obj.previous_page_number }}">
+                            <i class="iconfont icon-arrow-ios-back-outli"></i>
+                        </a>
+                        {% endif %}
+
+                        <!-- 下一页 -->
+                        {% if page_obj.has_next %}
+                        <a class="next page-numbers" href="{{ request.path }}?page={{ page_obj.next_page_number }}">
+                            <i class="iconfont icon-arrow-ios-forward-ou"></i>
+                        </a>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

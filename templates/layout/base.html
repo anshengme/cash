@@ -1,0 +1,214 @@
+{% load static %}
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <title>{% block title %}{{ config.title }} | {{ config.sub_title }}{% endblock %}</title>
+    <meta name="keywords" content="{% block keywords %}{{ config.keywords }}{% endblock %}"/>
+    <meta name="description" content="{% block description %}{{ config.description }}{% endblock %}"/>
+
+    <!-- themes css -->
+    <link rel='stylesheet' href="{% static 'themes/fonts.css' %}" type='text/css' media='all'/>
+    <link rel='stylesheet' href="{% static 'themes/themes.css' %}" type='text/css' media='all'/>
+    <link rel='stylesheet' href="{% static 'themes/style.css' %}" type='text/css' media='all'/>
+
+    <!-- GitHub MarkDown -->
+    <link href="//cdn.bootcss.com/github-markdown-css/3.0.1/github-markdown.min.css" rel="stylesheet">
+
+    <!-- Highlight.js css -->
+    <link href="//cdn.bootcss.com/highlight.js/9.15.6/styles/atom-one-dark.min.css" rel="stylesheet">
+
+    <!-- Icon -->
+    <link rel="icon" href="{% get_media_prefix %}default/favicon.ico" sizes="32x32"/>
+    <link rel="icon" href="{% get_media_prefix %}default/favicon.ico" sizes="192x192"/>
+
+    <!-- Logo -->
+    <link rel="apple-touch-icon-precomposed" href="{% get_media_prefix %}default/logo.png"/>
+    <meta name="msapplication-TileImage" content="{% get_media_prefix %}default/logo.png"/>
+
+    <!-- jquery -->
+    <script type='text/javascript' src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script type='text/javascript' src="//cdn.bootcss.com/jquery-migrate/1.4.1/jquery-migrate.min.js"></script>
+</head>
+<body class="home blog">
+
+<!-- PC头部导航 -->
+<header class="header shadow-2x">
+    <div class="container">
+        <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-10">
+                <nav class="navbar navbar-expand-lg px-0 py-2 py-lg-3">
+                    <a href="{% url 'article-list' %}" class="navbar-brand">
+                        <img src="{% get_media_prefix %}default/logo.png" alt="安生">
+                    </a>
+                    <div class="collapse navbar-collapse order-2 order-lg-1">
+                        <ul class="navbar-nav mx-auto main-menu" data-nav>
+                            <li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home"><a href="{% url 'article-list' %}">首页</a></li>
+                            <li class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="{% url 'tag-list' %}">标签</a></li>
+                            <li class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="{% url 'archive' %}">归档</a></li>
+                            <li class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="//github.com/anshengme" target="_blank">GitHub</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav navbar-menu sign-menu order-1 order-lg-2">
+                        <a href="javascript:" class="d-inline-block action-search action-sidebar"><i class="text-lg iconfont icon-search-outline"></i></a>
+                        <a href="javascript:" class="d-inline-block d-lg-none action-menu pl-4"><i class="text-lg iconfont icon-menu-outline"></i></a>
+                    </div>
+                </nav>
+
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- H5头部导航 -->
+<div class="mobile-navbar">
+    <div class="mobile-menu p-4 p-md-5">
+        <a class="action-menu btn btn-light px-2 mb-4"><i class="text-lg iconfont icon-close-outline"></i></a>
+        <ul class="navbar-nav">
+            <li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home"><a href="{% url 'article-list' %}">首页</a></li>
+            <li class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="{% url 'tag-list' %}">标签</a></li>
+            <li class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="{% url 'archive' %}">归档</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- 右侧搜索 -->
+<div class="sidebar-collapse">
+    <aside class="sidebar p-4 p-md-5">
+        <a href="javascript:" class="action-search btn btn-light px-2 mb-4"><i class="text-lg iconfont icon-close-outline"></i></a>
+
+        <!-- 搜索输入框 -->
+        <div class="widget widget-search mb-5">
+            <div class="widget-title h6 mb-4">
+                <span class="nice-m-line">搜索</span>
+                <small class="count">(0)</small>
+            </div>
+            <div class="widget-content">
+                <div class="search-input form-group mb-4">
+                    <input type="text" placeholder="请输入搜索关键词" class="form-control" value="" required="">
+                    <button class="btn" type="button"><i class="iconfont icon-search-outline"></i></button>
+                </div>
+
+                <div class="search-result">
+                    <ul></ul>
+                    <div class="loadmore text-sm mt-3" style="display: none"><a href="#" class="text-muted">加载更多...</a></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 近期文章 -->
+        <div id="recent-posts-2" class="widget widget_recent_entries mb-5">
+            <div class="widget-title h6 mb-4"><span class="nice-m-line">近期文章</span></div>
+            <ul>
+                {% for article in new_article_list %}
+                <li>
+                    <a href="{% url 'article-detail' article.url %}">{{ article.title }}</a>
+                    <span class="post-date">{{ article.release_time|date:'Y年m月d日' }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- 标签 -->
+        <div id="tag_cloud-2" class="widget widget_tag_cloud mb-5">
+            <div class="widget-title h6 mb-4"><span class="nice-m-line">标签</span></div>
+            <div class="tagcloud">
+                {% for tag in tags%}
+                <a href="#" class="tag-cloud-link" style="font-size: 8pt;" aria-label="{{ tag.name }} ({{ tag.count }}个项目)">{{ tag.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </aside>
+</div>
+
+<div class="bg-overlay"></div>
+
+{% block content %}{% endblock %}
+
+<!-- 底部 -->
+<footer class="footer">
+
+    <!-- 联系信息 -->
+    <div class="bg-light py-5">
+        <div class="container">
+            <div class="row justify-content-lg-center">
+                <div class="col-12 col-lg-10 px-lg-5">
+                    <div class="row my-n4">
+
+                        <!-- 关于我 -->
+                        <div class="col-12 col-lg-4 widget widget_text py-4">
+                            <div class="widget-title h6 mb-4"><span class="nice-m-line">关于我</span></div>
+                            <div class="textwidget">
+                                <p>大好时光，快来撸代码~</p>
+                            </div>
+                        </div>
+
+                        <!-- 友情链接 -->
+                        {% if link_list %}
+                        <div class="col-12 col-lg-4 widget widget_links py-4">
+                            <div class="widget-title h6 mb-4">
+                                <span class="nice-m-line">友情链接</span>
+                            </div>
+                            <div class="text-xs text-muted xoxo blogroll">
+                                {% for link in link_list %}
+                                <span class="d-inline-block">
+                                    <a class="text-muted" href="{{ link.url }}" target="_blank">{{ link.name }}</a>
+                                </span>
+                                {% endfor %}
+                            </div>
+
+                        </div>
+                        {% endif %}
+
+                        <!-- 专题 -->
+                        {% if topic_list %}
+                        <div class="col-12 col-lg-4 widget widget_categories py-4">
+                            <div class="widget-title h6 mb-4">
+                                <span class="nice-m-line">专题</span>
+                            </div>
+                            <ul>
+                                {% for topic in topic_list %}
+                                <li class="cat-item">
+                                    <a href="{% url 'article-detail' topic.url %}">{{ topic.title }}</a> (999+)
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 版权信息 -->
+    <div class="bg-secondary py-5">
+        <div class="container">
+            <div class="row justify-content-lg-center">
+                <div class="col-12 col-lg-10 px-lg-5">
+                    <div class="text-center text-xs text-light">
+                        © {% now "Y" %} All Rights Reserved<span class="px-2">&sdot;</span>Developed by <a href="{% url 'article-list' %}">ansheng</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</footer>
+
+<!-- 返回顶部 -->
+<a id="nice-back-to-top" href="#">
+    <span class="icon-stack">
+        <i class="iconfont icon-chevron-up-outline"></i>
+        <span class="back-to-top-text">Top</span>
+    </span>
+</a>
+
+<!-- themes -->
+<script type='text/javascript' src="{% static 'themes/nicetheme.js' %}"></script>
+<script type='text/javascript' src="{% static 'themes/plugins.min.js' %}"></script>
+</body>
+</html>

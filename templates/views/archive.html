@@ -1,0 +1,40 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block title %}归档 | {{ config.sub_title }}{% endblock %}
+
+{% block content %}
+
+<section class="page-header bg-light py-4 py-lg-5">
+    <div class="container">
+        <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+                <h1 class="h3"><span class="nice-m-line">归档</span></h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main class="py-4 py-lg-5">
+    <div class="container">
+        <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+                <section class="py-4 py-lg-5">
+                    <div class="post page type-page status-publish hentry archive">
+                        {% for year,article_list in archive_data.items %}
+                        <div>
+                            <h1 class="post-header h4 mb-4">{{year}}</h1>
+                            <ul>
+                                {% for article in article_list %}
+                                <li><span>{{article.release_time}}</span><a href="{% url 'article-detail' article.url %}" class="text-md">{{article.title}}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
