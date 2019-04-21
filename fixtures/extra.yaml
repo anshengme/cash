@@ -34,3 +34,10 @@
     value: "安生博客"
     desc: "描述"
 
+- model: cash_extra.config
+  pk: 5
+  fields:
+    ct: "2019-01-01 00:00:00"
+    ut: "2019-01-01 00:00:00"
+    key: "google_analytics_id"
+    desc: "Google统计ID，类似88888888-1"
