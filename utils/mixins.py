@@ -14,6 +14,15 @@ class BaseViewMixin(object):
         context["link_list"] = Link.objects.all()
         context["topic_list"] = Article.objects.filter(type=2, status=1).order_by("-release_time").values("title", "url")
         context["config"] = {item.key: item.value for item in Config.objects.all()}
+        url_path = self.request.path
+        element_node = None
+        if url_path == '/':
+            element_node = 'home-nav'
+        elif url_path.startswith('/tag'):
+            element_node = "tag-nav"
+        elif url_path.startswith("/archive"):
+            element_node = "archive-nav"
+        context["config"]["element_node"] = element_node
         return context
 
 

@@ -46,10 +46,10 @@
                     </a>
                     <div class="collapse navbar-collapse order-2 order-lg-1">
                         <ul class="navbar-nav mx-auto main-menu" data-nav>
-                            <li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home"><a href="{% url 'article-list' %}">首页</a></li>
-                            <li class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="{% url 'tag-list' %}">标签</a></li>
-                            <li class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="{% url 'archive' %}">归档</a></li>
-                            <li class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="//github.com/anshengme" target="_blank">GitHub</a></li>
+                            <li class="menu-item menu-item-type-post_type menu-item-object-page home-nav"><a href="{% url 'article-list' %}">首页</a></li>
+                            <li class="menu-item menu-item-type-post_type menu-item-object-page tag-nav"><a href="{% url 'tag-list' %}">标签</a></li>
+                            <li class="menu-item menu-item-type-post_type menu-item-object-page archive-nav"><a href="{% url 'archive' %}">归档</a></li>
+                            <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="//github.com/anshengme" target="_blank">GitHub</a></li>
                         </ul>
                     </div>
                     <div class="nav navbar-menu sign-menu order-1 order-lg-2">
@@ -66,11 +66,13 @@
 <!-- H5头部导航 -->
 <div class="mobile-navbar">
     <div class="mobile-menu p-4 p-md-5">
-        <a class="action-menu btn btn-light px-2 mb-4"><i class="text-lg iconfont icon-close-outline"></i></a>
+        <a class="action-menu btn btn-light px-2 mb-4">
+            <i class="text-lg iconfont icon-close-outline"></i>
+        </a>
         <ul class="navbar-nav">
-            <li class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home"><a href="{% url 'article-list' %}">首页</a></li>
-            <li class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="{% url 'tag-list' %}">标签</a></li>
-            <li class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="{% url 'archive' %}">归档</a></li>
+            <li><a href="{% url 'article-list' %}">首页</a></li>
+            <li><a href="{% url 'tag-list' %}">标签</a></li>
+            <li><a href="{% url 'archive' %}">归档</a></li>
         </ul>
     </div>
 </div>
@@ -117,7 +119,7 @@
             <div class="widget-title h6 mb-4"><span class="nice-m-line">标签</span></div>
             <div class="tagcloud">
                 {% for tag in tags%}
-                <a href="#" class="tag-cloud-link" style="font-size: 8pt;" aria-label="{{ tag.name }} ({{ tag.count }}个项目)">{{ tag.name }}</a>
+                <a href="{% url 'tag-detail' tag.name %}" class="tag-cloud-link" style="font-size: 8pt;" aria-label="{{ tag.name }} ({{ tag.count }}个项目)">{{ tag.name }}</a>
                 {% endfor %}
             </div>
         </div>
@@ -211,8 +213,8 @@
 <script type='text/javascript' src="{% static 'themes/nicetheme.js' %}"></script>
 <script type='text/javascript' src="{% static 'themes/plugins.min.js' %}"></script>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
 {% if config.google_analytics_id %}
+<!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-{{ config.google_analytics_id }}"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
@@ -225,5 +227,12 @@
     gtag('config', 'UA-{{ config.google_analytics_id }}');
 </script>
 {% endif %}
+
+{% if config.element_node %}
+<script type="text/javascript">
+    $(".{{ config.element_node }}").addClass("current-menu-item current_page_item");
+</script>
+{% endif %}
+
 </body>
 </html>
