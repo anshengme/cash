@@ -1,7 +1,7 @@
 {% extends "layout/base.html" %}
 {% load static %}
 
-{% block title %}{{ object.title }}{% endblock %}
+{% block title %}{{ object.title }} | {{ config.sub_title }}{% endblock %}
 {% block keywords %}{{ object.keywords }}{% endblock %}
 {% block description %}{{ object.description }}{% endblock %}
 
