@@ -2,7 +2,7 @@ APP_LIST=cash_article cash_link cash_tag cash_extra
 
 
 clean:
-	rm -rf */migrations
+	rm -rf */migrations db.sqlite3
 
 
 migrate:
