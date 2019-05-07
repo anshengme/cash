@@ -13,7 +13,7 @@ class ArchiveListView(BaseViewMixin,
     """
     归档页
     """
-    queryset = Article.objects.filter(type=1, status=1, release_time__isnull=False).order_by("-release_time")
+    queryset = Article.objects.filter(type=1, status=1).order_by("-ct")
     template_name = 'views/archive.html'
 
     def get_context_data(self, **kwargs):
@@ -21,7 +21,7 @@ class ArchiveListView(BaseViewMixin,
         serializer = ArchiveViewSetListSerializer(context['object_list'], many=True)
         archive_data = {}
         for article in serializer.data:
-            year = article["release_time"][:4]
+            year = article["ct"][:4]
             if year not in archive_data:
                 archive_data[year] = []
             archive_data[year].append(article)

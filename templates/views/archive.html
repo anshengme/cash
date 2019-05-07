@@ -26,7 +26,7 @@
                             <h1 class="post-header h4 mb-4">{{year}}</h1>
                             <ul>
                                 {% for article in article_list %}
-                                <li><span>{{article.release_time}}</span><a href="{% url 'article-detail' article.url %}" class="text-md">{{article.title}}</a></li>
+                                <li><span>{{article.ct}}</span><a href="{% url 'article-detail' article.url %}" class="text-md">{{article.title}}</a></li>
                                 {% endfor %}
                             </ul>
                         </div>

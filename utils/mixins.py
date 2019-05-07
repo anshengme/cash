@@ -9,10 +9,10 @@ from cash_tag.models import Tag
 class BaseViewMixin(object):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['new_article_list'] = Article.objects.filter(type=1, status=1).order_by("-release_time")[:5]
+        context['new_article_list'] = Article.objects.filter(type=1, status=1).order_by("-ct")[:5]
         context['tags'] = Tag.objects.all()
         context["link_list"] = Link.objects.all()
-        context["topic_list"] = Article.objects.filter(type=2, status=1).order_by("-release_time").values("title", "url")
+        context["topic_list"] = Article.objects.filter(type=2, status=1).order_by("-ct").values("title", "url")
         context["config"] = {item.key: item.value for item in Config.objects.all()}
         url_path = self.request.path
         element_node = None

@@ -40,7 +40,6 @@ THIRD_PARTY_APPS = (
 )
 
 LOCAL_APPS = (
-    'cash_account.apps.CashAccountConfig',
     'cash_article.apps.CashArticleConfig',
     'cash_link.apps.CashLinkConfig',
     'cash_tag.apps.CashTagConfig',
@@ -118,16 +117,13 @@ DATABASES = {
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "media/static"),
 )
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# Set user model
-
-AUTH_USER_MODEL = 'cash_account.Account'
 
 # Fixtures configurations
 

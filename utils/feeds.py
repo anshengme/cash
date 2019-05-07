@@ -17,7 +17,7 @@ class RssSiteNewsFeed(Feed):
     feed_url = 'https://blog.ansheng.me/rss.xml'
 
     def items(self):
-        return Article.objects.filter(status=1).order_by('-release_time')
+        return Article.objects.filter(status=1).order_by('-ct')
 
     def item_title(self, item):
         return item.title
@@ -29,7 +29,7 @@ class RssSiteNewsFeed(Feed):
         return '/article/{}/'.format(item.url)
 
     def item_pubdate(self, item):
-        return item.release_time
+        return item.ct
 
     def item_guid(self, item):
         return

@@ -17,8 +17,8 @@ class Article(BaseModel):
     status = models.IntegerField(default=1, choices=static.ARTICLE_STATUS_CHOICES, verbose_name='文章状态')
     type = models.IntegerField(default=1, choices=static.ARTICLE_TYPE_CHOICES, verbose_name='文章类型')
     view_count = models.IntegerField(default=0, verbose_name="查看数")
-    release_time = models.DateTimeField(null=True, blank=True, verbose_name="发布时间")
     tags = models.ManyToManyField(Tag, blank=True, verbose_name="标签")
+    is_top = models.BooleanField(default=False, verbose_name="是否顶置")
 
     def __str__(self):
         return self.title

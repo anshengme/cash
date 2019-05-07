@@ -16,7 +16,8 @@
                     {% if banner_list.0 %}
                     <div class="item col-12 col-sm-6 mb-2 mb-sm-0">
                         <div class="media shadow-2x">
-                            <a class="media-content" href="{% url 'article-detail' banner_list.0.url %}" target="_blank" title="{{ banner_list.0.title }}" style="background-image:url({{banner_list.0.img}})">
+                            <a class="media-content" href="{% url 'article-detail' banner_list.0.url %}" target="_blank"
+                               title="{{ banner_list.0.title }}" style="background-image:url({{banner_list.0.img}})">
                                 <div class="media-hover"></div>
                                 <div class="title h5 text-center px-3">
                                     <span class=" h-2x">{{ banner_list.0.title }}</span>
@@ -32,7 +33,9 @@
                             {% if banner_list.1 %}
                             <div class="item col-6">
                                 <div class="media shadow-2x">
-                                    <a class="media-content" href="{% url 'article-detail' banner_list.1.url %}" target="_blank" title="{{ banner_list.1.title }}" style="background-image:url({{ banner_list.1.img }})">
+                                    <a class="media-content" href="{% url 'article-detail' banner_list.1.url %}"
+                                       target="_blank" title="{{ banner_list.1.title }}"
+                                       style="background-image:url({{ banner_list.1.img }})">
                                         <div class="media-hover"></div>
                                         <div class="title h6 text-center px-3">
                                             <span class=" h-2x">{{ banner_list.1.title }}</span>
@@ -44,9 +47,12 @@
                             {% if banner_list.2 %}
                             <div class="item col-6">
                                 <div class="media shadow-2x">
-                                    <a class="media-content" href="{% url 'article-detail' banner_list.2.url %}" target="_blank" title="{{ banner_list.2.title }}" style="background-image:url({{ banner_list.2.img }})">
+                                    <a class="media-content" href="{% url 'article-detail' banner_list.2.url %}"
+                                       target="_blank" title="{{ banner_list.2.title }}"
+                                       style="background-image:url({{ banner_list.2.img }})">
                                         <div class="media-hover"></div>
-                                        <div class="title h6 text-center px-3"><span class=" h-2x">{{ banner_list.2.title }}</span></div>
+                                        <div class="title h6 text-center px-3"><span class=" h-2x">{{ banner_list.2.title }}</span>
+                                        </div>
                                     </a>
                                 </div>
                             </div>
@@ -58,7 +64,9 @@
                             {% if banner_list.3 %}
                             <div class="item col-6">
                                 <div class="media shadow-2x">
-                                    <a class="media-content" href="{% url 'article-detail' banner_list.3.url %}" target="_blank" title="{{ banner_list.3.title }}" style="background-image:url({{ banner_list.3.img }})">
+                                    <a class="media-content" href="{% url 'article-detail' banner_list.3.url %}"
+                                       target="_blank" title="{{ banner_list.3.title }}"
+                                       style="background-image:url({{ banner_list.3.img }})">
                                         <div class="media-hover"></div>
                                         <div class="title h6 text-center px-3">
                                             <span class=" h-2x">{{ banner_list.3.title }}</span>
@@ -71,7 +79,9 @@
                             {% if banner_list.4 %}
                             <div class="item col-6">
                                 <div class="media shadow-2x">
-                                    <a class="media-content" href="{% url 'article-detail' banner_list.4.url %}" target="_blank" title="{{ banner_list.4.title }}" style="background-image:url({{ banner_list.4.img }})">
+                                    <a class="media-content" href="{% url 'article-detail' banner_list.4.url %}"
+                                       target="_blank" title="{{ banner_list.4.title }}"
+                                       style="background-image:url({{ banner_list.4.img }})">
                                         <div class="media-hover"></div>
                                         <div class="title h6 text-center px-3">
                                             <span class=" h-2x">{{ banner_list.4.title }}</span>
@@ -118,8 +128,21 @@
                                     </span>
                                     {% endfor %}
                                     <i class="text-primary px-2">&bull;</i>
-                                    <span class="d-inline-block"> {{ object.release_time }}</span>
+                                    <span class="d-inline-block"> {{ object.ct }}</span>
+                                    <i class="text-primary px-2">&bull;</i>
+                                    <span>{{ object.view_count }}</span>
                                 </div>
+
+                                <!-- 是否顶置 -->
+                                {% if object.is_top %}
+                                <div class="ml-auto text-xs text-muted ">
+                                    <span class="d-inline-block text-primary px-2"
+                                          data-toggle="tooltip"
+                                          data-placement="top" title="置顶">
+                                        <i class="text-lg iconfont icon-arrowhead-up-outline"></i>
+                                    </span>
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
 
@@ -127,7 +150,8 @@
                         {% if object.img %}
                         <div class="list-image col-3">
                             <div class="media shadow">
-                                <a href="{% url 'article-detail' object.url %}" class="media-content" style="background-image:url({{ object.img }})"></a>
+                                <a href="{% url 'article-detail' object.url %}" class="media-content"
+                                   style="background-image:url({{ object.img }})"></a>
                             </div>
                         </div>
                         {% endif %}
@@ -145,7 +169,8 @@
                         {% if forloop.counter == page_obj.number %}
                         <span aria-current='page' class='page-numbers current'>{{ forloop.counter }}</span>
                         {% else %}
-                        <a class='page-numbers' href='{{ request.path }}?page={{ forloop.counter }}'>{{ forloop.counter }}</a>
+                        <a class='page-numbers' href='{{ request.path }}?page={{ forloop.counter }}'>{{ forloop.counter
+                            }}</a>
                         {% endif %}
                         {% endfor %}
 

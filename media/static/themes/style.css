@@ -3539,10 +3539,18 @@ body.active-sidebar .bg-overlay {
     line-height: 1.8;
 }
 
+.markdown-body ul, ol {
+    list-style: disc outside none !important;
+}
+
 .markdown-body pre {
     background: #282c34 !important;
     border-radius: 5px !important;
     color: #abb2bf;
+}
+
+.markdown-body blockquote::before {
+    content: "";
 }
 
 /* 友情链接 */

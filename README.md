@@ -40,6 +40,12 @@ $ docker-compose exec cash sh -c "cd /src && make load"
 $ docker-compose exec cash sh -c "cd /src && python manage.py createsuperuser"
 ```
 
+- 生成静态文件
+
+```bash
+$ docker-compose exec cash sh -c "cd /src && python manage.py collectstatic --noinput"
+```
+
 - 访问
 
 首页：`http://localhost:9080/` / 管理后台：`http://localhost:9080/`

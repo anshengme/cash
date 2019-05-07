@@ -13,7 +13,7 @@ class TagViewSetRetrieveSerializer(serializers.ModelSerializer):
     article_list = serializers.SerializerMethodField()
 
     def get_article_list(self, instance):
-        article_list = instance.article_set.filter(type=1, status=1).order_by("-release_time")
+        article_list = instance.article_set.filter(type=1, status=1).order_by("-ct")
         data = ArticleViewSetListSerializer(article_list, many=True).data
         return data
 

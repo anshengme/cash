@@ -16,15 +16,19 @@
                 <section class="post-header py-4 ">
                     <h1 class="title h3 font-weight-bold font-theme">{{ object.title }}</h1>
                     <div class="meta text-sm text-muted mt-4">
+                        {% if object.is_top %}
+                        <span class="d-inline-block text-primary">置顶</span>
                         <i class="text-primary px-2">&bull;</i>
+                        {% endif %}
                         {% for tag in object.tags %}
                         <span class="d-inline-block">
                             <a class="text-muted" href="{% url 'tag-detail' tag %}" target="_blank">#{{ tag|upper }}</a>
                         </span>
                         {% endfor %}
-
                         <i class="text-primary px-2">&bull;</i>
-                        <span class="d-inline-block pr-3">{{ object.release_time }}</span>
+                        <span class="d-inline-block">{{ object.ct }}</span>
+                        <i class="text-primary px-2">&bull;</i>
+                        <span>{{ object.view_count }}</span>
                     </div>
                 </section>
 
@@ -32,7 +36,8 @@
                 <section class="position-relative">
 
                     <!-- 文章正文 -->
-                    <div id="post-4148" class="post item item-regular post-4148 type-post status-publish format-standard has-post-thumbnail hentry category-trip tag-1009 special-rzcs">
+                    <div id="post-4148"
+                         class="post item item-regular post-4148 type-post status-publish format-standard has-post-thumbnail hentry category-trip tag-1009 special-rzcs">
                         <div class="markdown-body content">
                             {{ object.content|safe }}
                         </div>
@@ -50,7 +55,8 @@
 
                 <!-- 文章推荐 -->
                 <div class="related-list">
-                    <div class="h5 mb-4"><i class="text-xl text-primary iconfont icon-pricetags-outline pr-2"></i>您可能感兴趣的</div>
+                    <div class="h5 mb-4"><i class="text-xl text-primary iconfont icon-pricetags-outline pr-2"></i>您可能感兴趣的
+                    </div>
                     <div class="post-list list-grid list-bordered my-n4">
                         {% for object in recommend_article_list %}
                         <div class="list-item block item-regular post type-post status-publish format-standard has-post-thumbnail sticky hentry category-trip special-rzcs">
@@ -80,13 +86,14 @@
                                     </span>
                                         {% endfor %}
                                         <i class="text-primary px-2">&bull;</i>
-                                        <span class="d-inline-block"> {{ object.release_time }}</span>
+                                        <span class="d-inline-block"> {{ object.ct }}</span>
                                     </div>
 
                                     <!-- 顶置图标 -->
                                     {% if None %}
                                     <div class="ml-auto text-xs text-muted ">
-                                    <span class="d-inline-block text-primary px-2" data-toggle="tooltip" data-placement="top" title="置顶">
+                                    <span class="d-inline-block text-primary px-2" data-toggle="tooltip"
+                                          data-placement="top" title="置顶">
                                         <i class="text-lg iconfont icon-arrowhead-up-outline"></i>
                                     </span>
                                     </div>
@@ -98,7 +105,8 @@
                             {% if object.img %}
                             <div class="list-image col-3">
                                 <div class="media shadow">
-                                    <a href="{% url 'article-detail' object.url %}" class="media-content" style="background-image:url({{ object.img }})"></a>
+                                    <a href="{% url 'article-detail' object.url %}" class="media-content"
+                                       style="background-image:url({{ object.img }})"></a>
                                 </div>
                             </div>
                             {% endif %}

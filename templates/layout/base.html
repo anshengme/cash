@@ -108,7 +108,7 @@
                 {% for article in new_article_list %}
                 <li>
                     <a href="{% url 'article-detail' article.url %}">{{ article.title }}</a>
-                    <span class="post-date">{{ article.release_time|date:'Y年m月d日' }}</span>
+                    <span class="post-date">{{ article.ct|date:'Y年m月d日' }}</span>
                 </li>
                 {% endfor %}
             </ul>

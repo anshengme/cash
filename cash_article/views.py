@@ -12,7 +12,7 @@ class ArticleListView(BaseViewMixin,
     """
     首页
     """
-    queryset = Article.objects.filter(type=1, status=1).order_by("-release_time")
+    queryset = Article.objects.filter(type=1, status=1).order_by("-is_top", "-ct")
     paginate_by = 10
     template_name = 'views/article_list.html'
 
@@ -35,6 +35,6 @@ class ArticleDetailView(DetailViewMixin,
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        queryset = Article.objects.filter(type=1, status=1).order_by("-release_time")[:5]
+        queryset = Article.objects.filter(type=1, status=1).order_by("-ct")[:5]
         context['recommend_article_list'] = ArticleViewSetListSerializer(queryset, many=True).data
         return context

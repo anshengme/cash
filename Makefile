@@ -1,4 +1,4 @@
-APP_LIST=cash_account cash_article cash_link cash_tag cash_extra
+APP_LIST=cash_article cash_link cash_tag cash_extra
 
 
 clean:

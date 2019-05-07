@@ -10,8 +10,9 @@ class ArticleViewSetListSerializer(serializers.Serializer):
     description = serializers.CharField()
     img = serializers.SerializerMethodField()
     view_count = serializers.IntegerField()
-    release_time = serializers.DateTimeField(format=static.DATE_FORMAT)
+    ct = serializers.DateTimeField(format=static.DATE_FORMAT)
     tags = serializers.SerializerMethodField()
+    is_top = serializers.BooleanField()
 
     def get_img(self, instance):
         return '/' + instance.img if instance.img and not instance.img.startswith('/') else instance.img
