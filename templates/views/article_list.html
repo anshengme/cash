@@ -169,8 +169,7 @@
                         {% if forloop.counter == page_obj.number %}
                         <span aria-current='page' class='page-numbers current'>{{ forloop.counter }}</span>
                         {% else %}
-                        <a class='page-numbers' href='{{ request.path }}?page={{ forloop.counter }}'>{{ forloop.counter
-                            }}</a>
+                        <a class='page-numbers' href='{{ request.path }}?page={{ forloop.counter }}'>{{ forloop.counter }}</a>
                         {% endif %}
                         {% endfor %}
 
