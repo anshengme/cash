@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.views import generic
 
 from utils.mixins import BaseViewMixin, DetailViewMixin
@@ -7,12 +8,13 @@ from .serializers import ArticleViewSetRetrieveSerializer, ArticleViewSetListSer
 
 # Create your views here.
 
+
 class ArticleListView(BaseViewMixin,
                       generic.ListView):
     """
     首页
     """
-    queryset = Article.objects.filter(type=1, status=1).order_by("-is_top", "-ct")
+    queryset = Article.objects.filter(Q(status=1) & Q(type=1) | Q(is_top=True)).order_by("-is_top", "-ct")
     paginate_by = 10
     template_name = 'views/article_list.html'
 
