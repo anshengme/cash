@@ -21,7 +21,9 @@ class ArticleListView(BaseViewMixin,
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['object_list'] = ArticleViewSetListSerializer(context['object_list'], many=True).data
-        context['banner_list'] = self.queryset.filter(img__isnull=False).values("title", "img", "url")[:5]
+        page = int(self.request.GET.get("page", 0))
+        if page == 1 or not page:
+            context['banner_list'] = self.queryset.filter(img__isnull=False).values("title", "img", "url")[:5]
         return context
 
 

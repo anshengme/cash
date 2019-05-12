@@ -9,7 +9,7 @@ class BlogSitemap(Sitemap):
     protocol = 'https'
 
     def items(self):
-        return Article.objects.filter(status=1).order_by('-ct')
+        return Article.objects.order_by('-ct')
 
     def lastmod(self, obj):
         return obj.ut
