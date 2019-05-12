@@ -32,6 +32,21 @@
     <!-- jquery -->
     <script type='text/javascript' src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script type='text/javascript' src="//cdn.bootcss.com/jquery-migrate/1.4.1/jquery-migrate.min.js"></script>
+
+    {% if config.google_analytics_id %}
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-{{ config.google_analytics_id }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments)
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'UA-{{ config.google_analytics_id }}');
+    </script>
+    {% endif %}
 </head>
 <body class="home blog">
 
@@ -212,21 +227,6 @@
 <!-- themes -->
 <script type='text/javascript' src="{% static 'themes/nicetheme.js' %}"></script>
 <script type='text/javascript' src="{% static 'themes/plugins.min.js' %}"></script>
-
-{% if config.google_analytics_id %}
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-{{ config.google_analytics_id }}"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-        dataLayer.push(arguments)
-    }
-
-    gtag('js', new Date());
-    gtag('config', 'UA-{{ config.google_analytics_id }}');
-</script>
-{% endif %}
 
 {% if config.element_node %}
 <script type="text/javascript">
