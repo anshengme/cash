@@ -101,12 +101,11 @@
         <div class="widget widget-search mb-5">
             <div class="widget-title h6 mb-4">
                 <span class="nice-m-line">搜索</span>
-                <small class="count">(0)</small>
             </div>
             <div class="widget-content">
                 <div class="search-input form-group mb-4">
-                    <input type="text" placeholder="请输入搜索关键词" class="form-control" value="" required="">
-                    <button class="btn" type="button"><i class="iconfont icon-search-outline"></i></button>
+                    <input type="text" placeholder="请输入搜索关键词" class="form-control" value="" required="" id="search">
+                    <button class="btn" type="button" onclick="search()"><i class="iconfont icon-search-outline"></i></button>
                 </div>
 
                 <div class="search-result">
@@ -233,6 +232,14 @@
     $(".{{ config.element_node }}").addClass("current-menu-item current_page_item");
 </script>
 {% endif %}
-
+<script>
+    function search() {
+        var value = document.getElementById('search').value;
+        value = 'site:' + window.location.origin + ' ' + value;
+        value = encodeURIComponent(value);   // urlencode 编码
+        var url = 'https://www.google.com/search?q=' + value;
+        window.open(url, '_blank');      // 打开新标签
+    }
+</script>
 </body>
 </html>

@@ -1,18 +1,6 @@
 window.$ = jQuery;
 
 
-function toggleCommentAuthorInfo() {
-    var changeMsg = '<i class="text-md iconfont icon-edit-outline"></i>';
-    var closeMsg = '<i class="text-md iconfont icon-chevron-up-outline"></i>';
-    $('.comment-form-info').slideToggle('slow', function () {
-        if ($('.comment-form-info').css('display') === 'none') {
-            $('#toggle-comment-author-info').html(changeMsg);
-        } else {
-            $('#toggle-comment-author-info').html(closeMsg);
-        }
-    });
-}
-
 /*
 	Sticky Menu
 	----------------------------------------------------
@@ -50,36 +38,6 @@ jQuery(document).ready(function ($) {
         return false;
     });
 
-    $('.search-input input').on('input', function (e) {
-        var $input = jQuery(this);
-        var query = $input.val();
-        jQuery.ajax({
-            url: globals.ajax_url,
-            type: 'post',
-            data: {
-                action: 'load_search_results',
-                query: query
-            },
-            error: function (response) {
-                console.log(response)
-            },
-            success: function (response) {
-                if (query === '') response = '';
-                var ulNode = jQuery(".search-result ul");
-                var loadMoreNode = jQuery(".search-result .loadmore");
-                ulNode.html(response);
-                var items = ulNode.find("li") || [];
-                jQuery(".widget-search .count").html('(' + items.length + ')');
-                if (items.length < 5) {
-                    loadMoreNode.hide()
-                } else {
-                    loadMoreNode.show()
-                    loadMoreNode.find('a').attr('href', globals.site_url + '/?s=' + query);
-                }
-            }
-        });
-        return false;
-    });
 });
 
 $(document).on('click', '.action-menu', function (event) {
