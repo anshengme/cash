@@ -107,3 +107,4 @@ venv.bak/
 migrations
 static/
 media/images/
+docker-compose.yml

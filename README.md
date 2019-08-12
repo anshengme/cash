@@ -1,10 +1,10 @@
 # CASH
 
-## Demo环境快速启动阅览
+## Demo 环境快速启动阅览
 
-> 请确保你已经安装好了docker与docker-compose
+> 请确保你已经安装好了 docker 与 docker-compose
 
-- clone项目
+- clone 项目
 
 ```bash
 $ git clone https://github.com/anshengme/cash.git
@@ -14,6 +14,7 @@ $ git clone https://github.com/anshengme/cash.git
 
 ```bash
 $ cd cash
+$ cp docker-compose.demo.yml docker-compose.yml
 ```
 
 - 启动服务
@@ -22,7 +23,7 @@ $ cd cash
 $ make up
 ```
 
-- 查看日志已确保Django启动
+- 查看日志已确保 Django 启动
 
 ```bash
 $ make logs  # 类似出现api_1_CONTAINER_ID | python3 manage.py runserver 0:9006
