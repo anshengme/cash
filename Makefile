@@ -18,17 +18,6 @@ load:
 	python3 manage.py loaddata fixtures/*.yaml
 
 
-server:
+deploy:
 	gunicorn -c cash/gunicorn.conf.py cash.wsgi
 
-
-up:
-	docker-compose up -d
-
-
-down:
-	docker-compose down
-
-
-logs:
-	docker-compose logs -f

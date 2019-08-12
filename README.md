@@ -20,13 +20,13 @@ $ cp docker-compose.demo.yml docker-compose.yml
 - 启动服务
 
 ```bash
-$ make up
+$ docker-compose up -d
 ```
 
 - 查看日志已确保 Django 启动
 
 ```bash
-$ make logs  # 类似出现api_1_CONTAINER_ID | python3 manage.py runserver 0:9006
+$ docker-compose logs -f # 类似出现api_1_CONTAINER_ID | python3 manage.py runserver 0:9006
 ```
 
 - 导入默认数据
