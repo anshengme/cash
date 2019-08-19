@@ -108,3 +108,4 @@ migrations
 static/
 media/images/
 docker-compose.yml
+pgdata
